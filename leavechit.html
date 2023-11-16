@@ -54,30 +54,51 @@
   <p name="Leave">
     Available Leave:
   </p>
-  <p>
-    <label for="Annual Hours" style="padding-left: 20px">
-      Annual:
-    </label>
-    <input type="number" id="Annual Hours" name="Annual Hours" style="width: 45px">
-      Hrs
-    <label for="Comp Hours" style="padding-left: 20px">
-      Compensatory:
-    </label>
-    <input type="number" id="Comp Hours" name="Comp Hours" style="width: 45px">
-      Hrs
-  </p>
-  <p>
-    <label for="Sick Hours" style="padding-left: 20px">
-      Sick:
-    </label>
-    <input type="number" id="Sick Hours" name="Sick Hours" style="width: 45px">
-      Hrs
-    <label for="Shore Days" style="padding-left: 39px">
-      Shore:
-    </label>
-    <input type="number" id="Shore Days" name="Shore Days" style="width: 45px">
-      Days
-  </p>
+  <div class="row">
+    <div class="column">
+      <p>
+        <label for="Annual Hours" style="padding-left: 20px">
+          Annual:
+        </label>
+        <input type="number" id="Annual Hours" name="Annual Hours" style="width: 45px">
+          Hrs
+        <label for="Comp Hours" style="padding-left: 20px">
+          Compensatory:
+        </label>
+        <input type="number" id="Comp Hours" name="Comp Hours" style="width: 45px">
+          Hrs
+      </p>
+      <p>
+        <label for="Sick Hours" style="padding-left: 20px">
+          Sick:
+        </label>
+        <input type="number" id="Sick Hours" name="Sick Hours" style="width: 45px">
+          Hrs
+        <label for="Shore Days" style="padding-left: 39px">
+          Shore:
+        </label>
+        <input type="number" id="Shore Days" name="Shore Days" style="width: 45px">
+          Days
+      </p>
+    </div>
+    <div class="column">
+      <label for="Leave First">First Priority:</label>
+      <select name="Leave First" id="Leave First">
+        <option value="Shore">Shore</option>
+        <option value="Annual">Annual</option>
+        <option value="Compensatory">Compensatory</option>
+        <option value="Sick">Sick</option>
+      </select>
+      <p></p>
+      <label for="Leave Second">Second Priority:</label>
+      <select name="Leave Second" id="Leave Second">
+        <option value="Shore">Shore</option>
+        <option value="Annual">Annual</option>
+        <option value="Compensatory">Compensatory</option>
+        <option value="Sick">Sick</option>
+      </select>
+    </div>
+  </div>
   <p>
     
   </p>
