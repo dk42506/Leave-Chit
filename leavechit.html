@@ -12,6 +12,17 @@
     body {
       background-color: rgb(200, 200, 200);
     }
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 10px;
+      height: 300px;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
   </style>
   <meta charset="utf-8">
   <title>Leave Chit Calculator</title>
@@ -100,7 +111,6 @@
     </div>
   </div>
   <p>
-    
   </p>
   <p style="text-align: center;">
     <button onclick="modifyPdf()">
