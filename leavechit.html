@@ -14,7 +14,7 @@
     }
     .column {
       float: left;
-      width: 48%;
+      width: 35%;
       padding: 10px;
     }
     .row:after {
@@ -72,6 +72,8 @@
         </label>
         <input type="number" id="Annual Hours" name="Annual Hours" style="width: 45px">
           Hrs
+      </p>
+      <p>
         <label for="Comp Hours" style="padding-left: 20px">
           Compensatory:
         </label>
@@ -84,7 +86,9 @@
         </label>
         <input type="number" id="Sick Hours" name="Sick Hours" style="width: 45px">
           Hrs
-        <label for="Shore Days" style="padding-left: 39px">
+      </p>
+      <p>
+        <label for="Shore Days" style="padding-left: 20px">
           Shore:
         </label>
         <input type="number" id="Shore Days" name="Shore Days" style="width: 45px">
@@ -130,14 +134,25 @@
       </p>
     </div>
   </div>
-  <p>
-  </p>
+  <div class="row">
+    <div class="column">
+      <p>
+        <label for="Date Start">Date Start:</label>
+        <input type="date" id="Date Start" name="Date Start" style="width: 45px">
+      </p>
+    </div>
+    <div class="column">
+      <p>
+        <label for="Date End:">Date End:</label>
+        <input type="number" id="Date End" name="Date End" style="width: 45px">
+      </p>
+    </div>
+  </div>
   <p style="text-align: center;">
     <button onclick="modifyPdf()">
       Generate Leave Chit
     </button>
   </p>
-  
   <p style="text-align: center;">
     <iframe width="75%" height="450" id="pdf"></iframe>
   </p>
