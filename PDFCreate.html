@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Leave Chit Calculator</title>
+  <meta name="author" content="Todd Bertels">
+  <meta name="description" content="Leave Chit Calculator for MSC CIVMARs">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/pdf-lib"></script>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <p>Leave Chit Calculator</p>
+  <label for="First Name">First Name:</label>
+  <input type="text" id="First Name" name="First Name">
+  <label for="Last Name">Last Name:</label>
+  <input type="text" id="Last Name" name="Last Name">
+  <p></p>
+  <button onclick="createPdf()">Enter</button>
+  <p></p>
+  <iframe width="50%" height="500" id="pdf"></iframe>
+  <script>
+    function enterClick(){
+      let firstName = document.getElementById('First Name').value;
+      let lastName = document.getElementById('Last Name').value;
+      alert(firstName + " " + lastName);
+    }
+  </script>
+  <script>
+    // createPdf()
+    async function createPdf() {
+      let firstName = document.getElementById('First Name').value;
+      let lastName = document.getElementById('Last Name').value;
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      const page = pdfDoc.addPage([350, 400]);
+      page.moveTo(110, 200);
+      page.drawText(firstName + " " + lastName);
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri;
+    }
+  </script>
+  <!--<script src="leavechit.js"></script>-->
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    p {
+      color: rgb(0, 0, 0);
+      text-indent: 30px;
+      font-family: Arial, Helvetica, sans-serif, sans;
+      background: rgb(200, 200, 200)
+    }
+    body {
+      background-color: rgb(200, 200, 200);
+    }
+  </style>
+  <meta charset="utf-8">
+  <title>Leave Chit Calculator</title>
+  <meta name="author" content="Todd Bertels">
+  <meta name="description" content="Leave Chit Calculator for MSC CIVMARs">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://unpkg.com/pdf-lib"></script>
+  <script src="https://unpkg.com/downloadjs@1.4.7"></script>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <p name="Title" style="font-size: 24px; font-style: italic">
+    Leave Chit Calculator
+  </p>
+  <p name="Name">
+    Name:
+  </p>
+  <p name="Name Input">
+    <label for="First Name" style="padding-left: 20px">
+      First:
+    </label>
+    <input type="text" size="10" id="First Name" name="First Name">
+    <label for="Middle Name" style="padding-left: 20px">
+      Middle:
+    </label>
+    <input type="text" size="10" id="Middle Name" name="Middle Name">
+    <label for="Last Name" style="padding-left: 20px">
+      Last:
+    </label>
+    <input type="text" size="10" id="Last Name" name="Last Name">
+  </p>
+  <p>
+    <label for="Employee ID">
+      SSN Last Four:
+    </label>
+    <input type="text" size="10" id="Employee ID" name="Employee ID">
+  </p>
+  <p name="Leave">
+    Available Leave:
+  </p>
+  <p>
+    <label for="Annual Hours" style="padding-left: 20px">
+      Annual:
+    </label>
+    <input type="number" id="Annual Hours" name="Annual Hours" style="width: 45px">
+      Hrs
+    <label for="Comp Hours" style="padding-left: 20px">
+      Compensatory:
+    </label>
+    <input type="number" id="Comp Hours" name="Comp Hours" style="width: 45px">
+      Hrs
+  </p>
+  <p>
+    <label for="Sick Hours" style="padding-left: 20px">
+      Sick:
+    </label>
+    <input type="number" id="Sick Hours" name="Sick Hours" style="width: 45px">
+      Hrs
+    <label for="Shore Days" style="padding-left: 39px">
+      Shore:
+    </label>
+    <input type="number" id="Shore Days" name="Shore Days" style="width: 45px">
+      Days
+  </p>
+  <p>
+
+  </p>
+  <p style="text-align: center;">
+    <button onclick="modifyPdf()">
+      Generate Leave Chit
+    </button>
+  </p>
+  
+  <p style="text-align: center;">
+    <iframe width="75%" height="450" id="pdf"></iframe>
+  </p>
+  <script>
+    const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
+
+    async function modifyPdf() {
+      let firstName = document.getElementById('First Name').value;
+      let middleName = document.getElementById('Middle Name').value;
+      let lastName = document.getElementById('Last Name').value;
+      let employeeID = document.getElementById('Employee ID').value;
+      
+      // Fetch an existing PDF document
+      const url = 'opm71.pdf'
+  		const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+
+      // Load a PDFDocument from the existing PDF bytes
+      const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+      // Embed the Helvetica font
+      const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+
+      // Get the first page of the document
+      const pages = pdfDoc.getPages()
+      const firstPage = pages[0]
+
+      // Get the width and height of the first page
+      const { width, height } = firstPage.getSize()
+
+      // Draw a string of text diagonally across the first page
+      firstPage.drawText(lastName + ', ' + firstName + ', ' + middleName, {
+        x: 35,
+        y: height - 72,
+        size: 12,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        rotate: degrees(0),
+      })
+      firstPage.drawText(employeeID, {
+        x: 325,
+        y: height - 72,
+        size: 12,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        rotate: degrees(0),
+      })
+
+      // Serialize the PDFDocument to bytes (a Uint8Array)
+      // const pdfBytes = await pdfDoc.save({dataUri: true})
+      
+      const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
+      document.getElementById('pdf').src = pdfDataUri
+			// Trigger the browser to download the PDF document
+      //download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
+    }
+  </script>
+</body>
+
+</html>
