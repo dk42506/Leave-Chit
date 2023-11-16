@@ -1,11 +1,23 @@
 const { degrees, PDFDocument, rgb, StandardFonts } = PDFLib
 
 async function modifyPdf() {
+    //Get data from leavechit.html forms
     let firstName = document.getElementById('First Name').value;
     let middleName = document.getElementById('Middle Name').value;
     let lastName = document.getElementById('Last Name').value;
     let employeeID = document.getElementById('Employee ID').value;
-      
+    let firstChoice = document.getElementById('Leave First').value;
+    let secondChoice = document.getElementById('Leave Second').value;
+    let thirdChoice = document.getElementById('Leave Third').value;
+    let fourthChoice = document.getElementById('Leave Fourth').value;
+    let dateStartString = document.getElementById('Date Start').value;
+    let dateEndString = document.getElementById('Date End').value;
+    
+    //Convert date strings to unix timestamps
+    let dateStartUnix = Date.parse(dateStartString);
+    let dateEndUnix = Date.parse(dateEndString);
+    
+    
     // Fetch an existing PDF document
     const url = 'opm71.pdf'
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
