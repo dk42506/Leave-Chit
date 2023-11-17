@@ -17,7 +17,24 @@ async function modifyPdf() {
     let dateStartUnix = Date.parse(dateStartString);
     let dateEndUnix = Date.parse(dateEndString);
     
-    
+    //Calculate total number of weekdays between dates
+    var startDate = new Date(dateStartString);
+    var endDate = new Date(dateEndString);
+    var numOfDates = getBusinessDatesCount(startDate,endDate);
+
+    function getBusinessDatesCount(startDate, endDate) {
+        let count = 0;
+        const curDate = new Date(startDate.getTime());
+        while (curDate <= endDate) {
+            const dayOfWeek = curDate.getDay();
+            if(dayOfWeek !== 0 && dayOfWeek !== 6) count++;
+            curDate.setDate(curDate.getDate() + 1);
+        }
+        return count;
+    }
+
+    let leaveHours = numOfDates * 8;
+
     // Fetch an existing PDF document
     const url = 'opm71.pdf'
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
@@ -35,6 +52,8 @@ async function modifyPdf() {
     // Get the width and height of the first page
     const { width, height } = firstPage.getSize()
 
+    alert(width.toString() + ", " + height.toString())
+
     // Draw a string of text diagonally across the first page
     firstPage.drawText(lastName + ', ' + firstName + ', ' + middleName, {
         x: 35,
@@ -47,6 +66,22 @@ async function modifyPdf() {
     firstPage.drawText(employeeID, {
         x: 325,
         y: height - 72,
+        size: 12,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        rotate: degrees(0),
+    })
+    firstPage.drawText("Military Sealift Command", {
+        x: 19,
+        y: height - 112,
+        size: 12,
+        font: helveticaFont,
+        color: rgb(0, 0, 0),
+        rotate: degrees(0),
+    })
+    firstPage.drawText(leaveHours.toString(), {
+        x: 420,
+        y: height - 153,
         size: 12,
         font: helveticaFont,
         color: rgb(0, 0, 0),
