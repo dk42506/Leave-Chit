@@ -48,14 +48,7 @@ async function modifyPdf() {
     fields.forEach(field => {
         const type = field.constructor.name
         const name = field.getName()
-        try {
-            const fieldText = field.getText()
-        }
-        catch(err) {
-            const fieldText = 'null'
-        }
-        
-        console.log(`${type}: ${name}: ${fieldText}`)
+        console.log(`${type}: ${name}`)
     })
 
     // Embed the Helvetica font
