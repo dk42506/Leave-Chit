@@ -48,11 +48,12 @@ async function modifyPdf() {
     fields.forEach(field => {
         const type = field.constructor.name
         const name = field.getName()
+        const fieldText = ''
         try {
-            const fieldText = field.getText()
+            fieldText = field.getText()
         }
         catch(err) {
-            const fieldText = 'null'
+            fieldText = 'null'
         }
         console.log(`${type}: ${name}: ${fieldText}`)
     })
