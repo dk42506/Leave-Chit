@@ -36,11 +36,20 @@ async function modifyPdf() {
     let leaveHours = numOfDates * 8;
 
     // Fetch an existing PDF document
-    const url = 'opm71.pdf'
+    const url = 'opm71_fillable.pdf'
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
 
     // Load a PDFDocument from the existing PDF bytes
     const pdfDoc = await PDFDocument.load(existingPdfBytes)
+
+    // Get PDFDocument Form Fields
+    const form = pdfDoc.getForm()
+    const fields = form.getFields()
+    fields.forEach(field => {
+        const type = field.constructor.name
+        const name = field.getName()
+        console.log(`${type}: ${name}`)
+    })
 
     // Embed the Helvetica font
     const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
