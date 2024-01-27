@@ -36,7 +36,7 @@ async function modifyPdf() {
     let leaveHours = numOfDates * 8;
 
     // Fetch an existing PDF document
-    const url = 'opm71_fillable.pdf'
+    const url = 'opm71_fillable_test.pdf'
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
 
     // Load a PDFDocument from the existing PDF bytes
@@ -48,7 +48,8 @@ async function modifyPdf() {
     fields.forEach(field => {
         const type = field.constructor.name
         const name = field.getName()
-        console.log(`${type}: ${name}`)
+        const fieldText = field.getText()
+        console.log(`${type}: ${name}: ${fieldText}`)
     })
 
     // Embed the Helvetica font
@@ -65,24 +66,11 @@ async function modifyPdf() {
 
     // Fill PDF Fields
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[0]').setText(lastName + ', ' + firstName + ', ' + middleName)
+    form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[1]').setText(employeeID)
+    form.getTextField('form1[0].#subform[0].Table1[0].Row4[0].TextField[0]').setText('Military Sealift Command')
 
     // Draw a string of text diagonally across the first page
-    firstPage.drawText(employeeID, {
-        x: 325,
-        y: height - 72,
-        size: 12,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-        rotate: degrees(0),
-    })
-    firstPage.drawText("Military Sealift Command", {
-        x: 19,
-        y: height - 112,
-        size: 12,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-        rotate: degrees(0),
-    })
+
     firstPage.drawText(leaveHours.toString(), {
         x: 420,
         y: height - 153,
