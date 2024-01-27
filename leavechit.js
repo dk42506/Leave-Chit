@@ -63,15 +63,17 @@ async function modifyPdf() {
 
     alert(width.toString() + ", " + height.toString())
 
+    // Fill PDF Fields
+    form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[0]').setText(lastName + ', ' + firstName + ', ' + middleName)
     // Draw a string of text diagonally across the first page
-    firstPage.drawText(lastName + ', ' + firstName + ', ' + middleName, {
-        x: 35,
-        y: height - 72,
-        size: 12,
-        font: helveticaFont,
-        color: rgb(0, 0, 0),
-        rotate: degrees(0),
-    })
+    //firstPage.drawText(lastName + ', ' + firstName + ', ' + middleName, {
+    //    x: 35,
+    //    y: height - 72,
+    //    size: 12,
+    //    font: helveticaFont,
+    //    color: rgb(0, 0, 0),
+    //    rotate: degrees(0),
+    //})
     firstPage.drawText(employeeID, {
         x: 325,
         y: height - 72,
