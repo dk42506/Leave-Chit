@@ -36,7 +36,12 @@ async function modifyPdf() {
     let curChoice = firstChoice;
     let debugCount = 0;
 
+    console.log('Start Choice, and start/end dates, unmodified');
     console.log(curChoice);
+    console.log(startDate.toUTCString());
+    console.log(startDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+    console.log(endDate.toUTCString());
+    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
 
     //Declare date strings
     // startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
