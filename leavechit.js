@@ -138,7 +138,7 @@ async function modifyPdf() {
         }
         // Increase day count if day is not holiday or weekend
         if (curChoice == 'LWOP') {
-            console.log(curDate.toUTCString());
+            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
             console.log(SSH.toString());
             console.log(count.toString());
         }
@@ -222,11 +222,10 @@ async function modifyPdf() {
         }
         if (curChoice == 'LWOP' && curDate >= endDate) {
             endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+            console.log('LWOP End');
+            console.log(curDate.toUTCString());
+            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
             LWOPDays = count;
-            let curDatems = curDate.getMilliseconds();
-            let endDatems = endDate.getMilliseconds();
-            console.log(curDatems.toString());
-            console.log(endDatems.toString());
         }
 
         curDate.setDate(curDate.getDate() + 1);
@@ -245,8 +244,8 @@ async function modifyPdf() {
 
     let curDatems = curDate.getMilliseconds();
     let endDatems = endDate.getMilliseconds();
-    console.log(curDate.toUTCString());
-    console.log(endDate.toUTCString());
+    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
 
     
 
