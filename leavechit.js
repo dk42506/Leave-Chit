@@ -212,6 +212,16 @@ async function modifyPdf() {
         curDate.setDate(curDate.getDate() + 1);
     }
 
+    console.log('Shore Start:' + startDateShoreString);
+    console.log('Shore End:' + endDateShoreString);
+    console.log('Annual Start:' + startDateAnnualString);
+    console.log('Annual End:' + endDateAnnualString);
+    console.log('Comp Start:' + startDateCompString);
+    console.log('Comp End:' + endDateCompString);
+    console.log('LWOP Start:' + startDateLWOPString);
+    console.log('LWOP End:' + endDateLWOPString);
+    
+
     // Fetch an existing PDF document
     const url = 'opm71_fillable.pdf';
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
