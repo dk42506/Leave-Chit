@@ -137,6 +137,10 @@ async function modifyPdf() {
             SSH = 1;
         }
         // Increase day count if day is not holiday or weekend
+        if (curChoice == 'LWOP') {
+            console.log(curDate.toUTCString);
+            console.log(SSH.toString());
+        }
         if (SSH == 0) count++;
 
         // Check if count exceeds leave available for current choice, move to next choice
