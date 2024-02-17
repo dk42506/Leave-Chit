@@ -16,6 +16,8 @@ async function modifyPdf() {
     let compHours = document.getElementById('Comp Hours').value;
     let sickHours = document.getElementById('Sick Hours').value;
     let shoreDays = document.getElementById('Shore Days').value;
+
+    console.log(firstChoice);
     
     //Declare leave days variables
     let annualDays = Math.floor(annualHours / 8);
@@ -33,6 +35,8 @@ async function modifyPdf() {
     let zeroCheck = 0;
     let curChoice = firstChoice;
     let debugCount = 0;
+
+    console.log(curChoice);
 
     //Declare date strings
     // startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
