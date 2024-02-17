@@ -231,8 +231,8 @@ async function modifyPdf() {
     console.log('LWOP Start:' + startDateLWOPString);
     console.log('LWOP End:' + endDateLWOPString);
 
-    console.log(curDate.toDateString());
-    console.log(endDate.toDateString());
+    console.log(curDate.toUTCString());
+    console.log(endDate.toUTCString());
 
     
 
