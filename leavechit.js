@@ -196,23 +196,23 @@ async function modifyPdf() {
             }
         }
         //Check if last loop, set final end date
-        if (curChoice == 'Shore' && curDate == endDate) {
+        if (curChoice == 'Shore' && curDate >= endDate) {
             endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             shoreDays = count;
         }
-        if (curChoice == 'Annual' && curDate == endDate) {
+        if (curChoice == 'Annual' && curDate >= endDate) {
             endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             annualDays = count;
         }
-        if (curChoice == 'Compensatory' && curDate == endDate) {
+        if (curChoice == 'Compensatory' && curDate >= endDate) {
             endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             compDays = count;
         }
-        if (curChoice == 'Sick' && curDate == endDate) {
+        if (curChoice == 'Sick' && curDate >= endDate) {
             endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             sickDays = count;
         }
-        if (curChoice == 'LWOP' && curDate == endDate) {
+        if (curChoice == 'LWOP' && curDate >= endDate) {
             endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             LWOPDays = count;
         }
