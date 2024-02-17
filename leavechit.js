@@ -53,6 +53,7 @@ async function modifyPdf() {
 
     while (curDate <= endDate) {
         SSH = 0;
+        zeroCheck = 0;
 
         // Assign new choice start date
         if (curChoice == 'Shore' && count == 0) {
