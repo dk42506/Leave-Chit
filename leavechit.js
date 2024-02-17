@@ -32,6 +32,7 @@ async function modifyPdf() {
     let SSH = 0;
     let zeroCheck = 0;
     let curChoice = firstChoice;
+    let debugCount = 0;
 
     //Declare date strings
     // startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
@@ -210,8 +211,10 @@ async function modifyPdf() {
         }
 
         curDate.setDate(curDate.getDate() + 1);
+        debugCount++;
     }
 
+    console.log(debugCount.toString());
     console.log('Shore Start:' + startDateShoreString);
     console.log('Shore End:' + endDateShoreString);
     console.log('Annual Start:' + startDateAnnualString);
@@ -220,6 +223,7 @@ async function modifyPdf() {
     console.log('Comp End:' + endDateCompString);
     console.log('LWOP Start:' + startDateLWOPString);
     console.log('LWOP End:' + endDateLWOPString);
+
     
 
     // Fetch an existing PDF document
