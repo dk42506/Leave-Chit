@@ -215,6 +215,10 @@ async function modifyPdf() {
         if (curChoice == 'LWOP' && curDate >= endDate) {
             endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             LWOPDays = count;
+            let curDatems = curDate.getMilliseconds();
+            let endDatems = endDate.getMilliseconds();
+            console.log(curDatems.toString());
+            console.log(endDatems.toString());
         }
 
         curDate.setDate(curDate.getDate() + 1);
@@ -231,6 +235,8 @@ async function modifyPdf() {
     console.log('LWOP Start:' + startDateLWOPString);
     console.log('LWOP End:' + endDateLWOPString);
 
+    let curDatems = curDate.getMilliseconds();
+    let endDatems = endDate.getMilliseconds();
     console.log(curDate.toUTCString());
     console.log(endDate.toUTCString());
 
