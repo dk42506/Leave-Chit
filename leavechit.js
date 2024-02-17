@@ -136,7 +136,9 @@ async function modifyPdf() {
 
         // Check if count exceeds leave available for current choice, move to next choice
         while (zeroCheck == 0) {
+            console.log('While loop entered');
             if (curChoice == 'Shore' && count == shoreDays) {
+                console.log('Shore end if check entered');
                 endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
                 count = 0;
                 if (firstChoice == 'Shore') {
