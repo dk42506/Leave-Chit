@@ -212,34 +212,34 @@ async function modifyPdf() {
     }
 
     // Fetch an existing PDF document
-    const url = 'opm71_fillable_test.pdf';
+    const url = 'opm71_fillable.pdf';
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
 
     // Load a PDFDocument from the existing PDF bytes
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
     // Get PDFDocument Form Fields
-    const form = pdfDoc.getForm();
-    const fields = form.getFields();
-    fields.forEach(field => {
-        const type = field.constructor.name;
-        const name = field.getName();
-        var fieldText = '';
-        try {
-            fieldText = field.getText();
-            fieldChecked = 'null';
-        }
-        catch(err) {
-            fieldText = 'null';
-            try {
-                fieldChecked = field.isChecked();
-            }
-            catch(err) {
-                fieldChecked = 'null';
-            }
-        }
-        console.log(`${type}: ${name}: ${fieldText}: ${fieldChecked}`);
-    })
+    //const form = pdfDoc.getForm();
+    //const fields = form.getFields();
+    //fields.forEach(field => {
+    //    const type = field.constructor.name;
+    //    const name = field.getName();
+    //    var fieldText = '';
+    //    try {
+    //        fieldText = field.getText();
+    //        fieldChecked = 'null';
+    //    }
+    //    catch(err) {
+    //        fieldText = 'null';
+    //        try {
+    //            fieldChecked = field.isChecked();
+    //        }
+    //        catch(err) {
+    //            fieldChecked = 'null';
+    //        }
+    //    }
+    //    console.log(`${type}: ${name}: ${fieldText}: ${fieldChecked}`);
+    //})
 
     //Convert Final days to hours
     annualHours = annualDays * 8;
