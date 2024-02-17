@@ -220,7 +220,7 @@ async function modifyPdf() {
     const pdfDoc = await PDFDocument.load(existingPdfBytes);
 
     // Get PDFDocument Form Fields
-    //const form = pdfDoc.getForm();
+    const form = pdfDoc.getForm();
     //const fields = form.getFields();
     //fields.forEach(field => {
     //    const type = field.constructor.name;
