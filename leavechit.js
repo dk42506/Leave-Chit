@@ -140,8 +140,12 @@ async function modifyPdf() {
         if (curChoice == 'LWOP') {
             console.log(curDate.toUTCString());
             console.log(SSH.toString());
+            console.log(count.toString());
         }
         if (SSH == 0) count++;
+        if (curChoice == 'LWOP') {
+            console.log(count.toString());
+        }
 
         // Check if count exceeds leave available for current choice, move to next choice
         while (zeroCheck == 0) {
@@ -295,7 +299,7 @@ async function modifyPdf() {
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].DateTimeField28[0]').setText('8:00:00 AM');
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].DateTimeField31[0]').setText('5:00:00 PM');
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].TextField[0]').setText(shoreDays);
-        form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(shoreDays + 'to be billed as shore leave days.');
+        form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(shoreDays + ' days to be billed as shore leave days.');
     }
     if (startDateAnnualString != '') {
         form.getCheckBox('form1[0].#subform[0].CheckBox1[0]').check();
