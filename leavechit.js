@@ -21,6 +21,7 @@ async function modifyPdf() {
     let annualDays = Math.floor(annualHours / 8);
     let compDays = Math.floor(compHours / 8);
     let sickDays = Math.floor(sickHours / 8);
+    let LWOPDays = 0;
 
     //Calculate end dates for each leave type
     let startDate = new Date(dateStartString);
@@ -205,7 +206,7 @@ async function modifyPdf() {
         }
         if (curChoice == 'LWOP' && curDate == endDate) {
             endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
-            let LWOPDays = count;
+            LWOPDays = count;
         }
 
         curDate.setDate(curDate.getDate() + 1);
