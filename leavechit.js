@@ -30,8 +30,8 @@ async function modifyPdf() {
     let endDate = new Date(dateEndString);
 
     let timeOffset = startDate.getTimezoneOffset();
-    startDate.setMinutes(-1*timeOffset);
-    endDate.setMinutes(-1*timeOffset);
+    startDate.setMinutes(timeOffset);
+    endDate.setMinutes(timeOffset);
 
     let count = 0;
     const curDate = new Date(startDate.getTime());
