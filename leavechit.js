@@ -29,6 +29,10 @@ async function modifyPdf() {
     let startDate = new Date(dateStartString);
     let endDate = new Date(dateEndString);
 
+    let timeOffset = startDate.getTimezoneOffset();
+    startDate.setMinutes(-1*timeOffset);
+    endDate.setMinutes(-1*timeOffset);
+
     let count = 0;
     const curDate = new Date(startDate.getTime());
     let SSH = 0;
@@ -68,7 +72,7 @@ async function modifyPdf() {
         if (curChoice == 'Shore' && count == 0) {
             startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
-            console.log('curDate: ' + startDateShoreString);
+            console.log('shoreStartDate: ' + startDateShoreString);
         } else if (curChoice == 'Annual' && count == 0) {
             startDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
         } else if (curChoice == 'Compensatory' && count == 0) {
