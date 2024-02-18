@@ -59,12 +59,16 @@ async function modifyPdf() {
     let endDateLWOPString = '';
 
     while (curDate <= endDate) {
+        console.log('Loop: ' + debugCount.toString());
+        console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
         SSH = 0;
         zeroCheck = 0;
 
         // Assign new choice start date
         if (curChoice == 'Shore' && count == 0) {
             startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+            console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+            console.log('curDate: ' + startDateShoreString);
         } else if (curChoice == 'Annual' && count == 0) {
             startDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
         } else if (curChoice == 'Compensatory' && count == 0) {
