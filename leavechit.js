@@ -349,10 +349,10 @@ async function modifyPdf() {
     }
 
     // Serialize the PDFDocument to bytes (a Uint8Array)
-    // const pdfBytes = await pdfDoc.save({dataUri: true})
+    const pdfBytes = await pdfDoc.save({dataUri: true})
       
     const pdfDataUri = await pdfDoc.saveAsBase64({ dataUri: true });
     document.getElementById('pdf').src = pdfDataUri;
 	// Trigger the browser to download the PDF document
-    //download(pdfBytes, "pdf-lib_modification_example.pdf", "application/pdf");
+    download(pdfBytes, "OPM71 Filled.pdf", "application/pdf");
 }
