@@ -312,7 +312,7 @@ async function modifyPdf() {
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].DateTimeField22[0]').setText(endDateShoreString);
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].DateTimeField28[0]').setText('8:00:00 AM');
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].DateTimeField31[0]').setText('5:00:00 PM');
-        form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].TextField[0]').setText(shoreDays);
+        form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].TextField[0]').setText(shoreDays.toString());
         form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(shoreDays + ' days to be billed as shore leave days.');
     }
     if (startDateAnnualString != '') {
