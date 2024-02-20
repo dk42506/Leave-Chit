@@ -90,7 +90,7 @@ async function modifyPdf() {
             startDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         }
 
-        const dayOfWeek = curDate.getDay();
+        const dayOfWeek = curDate.getUTCDay();
         if(dayOfWeek == 0 || dayOfWeek == 6) {
             // Weekend
             SSH = 1;
