@@ -50,7 +50,6 @@ async function modifyPdf() {
     console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
 
     //Declare date strings
-    // startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
     let startDateShoreString = '';
     let endDateShoreString = '';
     let startDateAnnualString = '';
@@ -64,6 +63,7 @@ async function modifyPdf() {
 
     while (curDate <= endDate) {
         console.log('Loop: ' + debugCount.toString());
+        console.log('curChoice: ' + curChoice);
         console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
         SSH = 0;
         zeroCheck = 0;
@@ -158,13 +158,9 @@ async function modifyPdf() {
             console.log(count.toString());
         }
         if (SSH == 0) count++;
-        if (curChoice == 'LWOP') {
-            console.log(count.toString());
-        }
 
         // Check if count exceeds leave available for current choice, move to next choice
         while (zeroCheck == 0) {
-            console.log('While loop entered');
             if (curChoice == 'Shore' && count == shoreDays) {
                 console.log('Shore end if check entered');
                 endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
@@ -219,6 +215,9 @@ async function modifyPdf() {
             }
         }
         //Check if last loop, set final end date
+        if (curDate >= endDate) {
+            console.log('Loop #' + debugCount + ': curDate >= endDate; curChoice: ' + curChoice);
+        }
         if (curChoice == 'Shore' && curDate >= endDate) {
             endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
             shoreDays = count;
