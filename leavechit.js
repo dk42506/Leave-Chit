@@ -67,11 +67,11 @@ async function modifyPdf() {
     let startDateLWOPString = '';
     let endDateLWOPString = '';
 
-    while (curDate.UTC() <= endDate.UTC()) {
+    while (Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) <= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
         console.log('Loop: ' + debugCount.toString());
         console.log('curChoice: ' + curChoice);
-        console.log('Current Date: ' + curDate.toUTCString() + ' | ' + curDate.UTC() + ' ms');
-        console.log('End Date: ' + endDate.toUTCString() + ' | ' + endDate.UTC() + ' ms');
+        console.log('Current Date: ' + curDate.toUTCString() + ' | ' + Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) + ' ms');
+        console.log('End Date: ' + endDate.toUTCString() + ' | ' + Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate()) + ' ms');
         SSH = 0;
         zeroCheck = 0;
 
@@ -222,23 +222,23 @@ async function modifyPdf() {
             }
         }
         //Check if last loop, set final end date
-        if (curChoice == 'Shore' && curDate.UTC() >= endDate.UTC()) {
+        if (curChoice == 'Shore' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
             endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             shoreDays = count;
         }
-        if (curChoice == 'Annual' && curDate.UTC() >= endDate.UTC()) {
+        if (curChoice == 'Annual' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
             endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             annualDays = count;
         }
-        if (curChoice == 'Compensatory' && curDate.UTC() >= endDate.UTC()) {
+        if (curChoice == 'Compensatory' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
             endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             compDays = count;
         }
-        if (curChoice == 'Sick' && curDate.UTC() >= endDate.UTC()) {
+        if (curChoice == 'Sick' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
             endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             sickDays = count;
         }
-        if (curChoice == 'LWOP' && curDate.UTC() >= endDate.UTC()) {
+        if (curChoice == 'LWOP' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
             endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             console.log('LWOP End');
             console.log(curDate.toUTCString());
