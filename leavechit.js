@@ -32,12 +32,12 @@ async function modifyPdf() {
     console.log('Original Start Date: ' + startDate.toUTCString());
     console.log('Original End Date: ' + endDate.toUTCString());
 
-    let timeOffset = startDate.getTimezoneOffset();
-    startDate.setMinutes(timeOffset);
-    endDate.setMinutes(timeOffset);
+    //let timeOffset = startDate.getTimezoneOffset();
+    //startDate.setMinutes(timeOffset);
+    //endDate.setMinutes(timeOffset);
 
-    console.log('Adjusted Start Date: ' + startDate.toUTCString());
-    console.log('Adjusted End Date: ' + endDate.toUTCString());
+    //console.log('Adjusted Start Date: ' + startDate.toUTCString());
+    //console.log('Adjusted End Date: ' + endDate.toUTCString());
 
     let count = 0;
     const curDate = new Date(startDate.getTime());
@@ -49,11 +49,11 @@ async function modifyPdf() {
     console.log('Start Choice, and start/current/end dates, unmodified');
     console.log(curChoice);
     console.log(startDate.toUTCString());
-    console.log(startDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+    console.log(startDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
     console.log(curDate.toUTCString());
-    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
     console.log(endDate.toUTCString());
-    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
 
     //Declare date strings
     let startDateShoreString = '';
@@ -67,7 +67,7 @@ async function modifyPdf() {
     let startDateLWOPString = '';
     let endDateLWOPString = '';
 
-    while (curDate <= endDate) {
+    while (curDate.getMilliseconds() <= endDate.getMilliseconds()) {
         console.log('Loop: ' + debugCount.toString());
         console.log('curChoice: ' + curChoice);
         console.log('Current Date: ' + curDate.toUTCString());
@@ -77,90 +77,90 @@ async function modifyPdf() {
 
         // Assign new choice start date
         if (curChoice == 'Shore' && count == 0) {
-            startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
-            console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+            startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+            console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
             console.log('shoreStartDate: ' + startDateShoreString);
         } else if (curChoice == 'Annual' && count == 0) {
-            startDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+            startDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         } else if (curChoice == 'Compensatory' && count == 0) {
-            startDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+            startDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         } else if (curChoice == 'Sick' && count == 0) {
-            startDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+            startDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         } else if (curChoice == 'LWOP' && count == 0) {
-            startDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+            startDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         }
 
         const dayOfWeek = curDate.getDay();
         if(dayOfWeek == 0 || dayOfWeek == 6) {
             // Weekend
             SSH = 1;
-        } else if (curDate.getMonth() == 0 && curDate.getDate() == 1) {
+        } else if (curDate.getUTCMonth() == 0 && curDate.getUTCDate() == 1) {
             // New Year's Day, non-weekend
             SSH = 1;
-        } else if ((curDate.getMonth() == 0 && curDate.getDate() == 2) && dayOfWeek == 1) {
+        } else if ((curDate.getUTCMonth() == 0 && curDate.getUTCDate() == 2) && dayOfWeek == 1) {
             // Sunday New Year's Day, Observed Monday
             SSH = 1;
-        } else if ((curDate.getMonth() == 11 && curDate.getDate() == 31) && dayOfWeek == 5) {
+        } else if ((curDate.getUTCMonth() == 11 && curDate.getUTCDate() == 31) && dayOfWeek == 5) {
             // Saturday New Year's Day, observed Friday
             SSH = 1;
-        } else if ((curDate.getDate() >= 15 && curDate.getDate() <= 21) && (dayOfWeek == 1 && curDate.getMonth() == 0)) {
+        } else if ((curDate.getUTCDate() >= 15 && curDate.getUTCDate() <= 21) && (dayOfWeek == 1 && curDate.getUTCMonth() == 0)) {
             // Third Monday of January, MLK Jr's Birthday
             SSH = 1;
-        } else if ((curDate.getDate() >= 15 && curDate.getDate() <= 21) && (dayOfWeek == 1 && curDate.getMonth() == 1)) {
+        } else if ((curDate.getUTCDate() >= 15 && curDate.getUTCDate() <= 21) && (dayOfWeek == 1 && curDate.getUTCMonth() == 1)) {
             // Third Monday of February, Washington's Birthday
             SSH = 1;
-        } else if ((curDate.getDate() >= 25 && curDate.getDate() <= 31) && (dayOfWeek == 1 && curDate.getMonth() == 4)) {
+        } else if ((curDate.getUTCDate() >= 25 && curDate.getUTCDate() <= 31) && (dayOfWeek == 1 && curDate.getUTCMonth() == 4)) {
             // Last Monday of May, Memorial Day
             SSH = 1;
-        } else if ((curDate.getDate() >= 1 && curDate.getDate() <= 7) && (dayOfWeek == 1 && curDate.getMonth() == 8)) {
+        } else if ((curDate.getUTCDate() >= 1 && curDate.getUTCDate() <= 7) && (dayOfWeek == 1 && curDate.getUTCMonth() == 8)) {
             // First Monday of September, Labor Day
             SSH = 1;
-        } else if ((curDate.getDate() >= 8 && curDate.getDate() <= 14) && (dayOfWeek == 1 && curDate.getMonth() == 9)) {
+        } else if ((curDate.getUTCDate() >= 8 && curDate.getUTCDate() <= 14) && (dayOfWeek == 1 && curDate.getUTCMonth() == 9)) {
             // Second Monday of October, Colombus Day
             SSH = 1;
-        } else if ((curDate.getDate() >= 15 && curDate.getDate() <= 21) && (dayOfWeek == 1 && curDate.getMonth() == 1)) {
+        } else if ((curDate.getUTCDate() >= 15 && curDate.getUTCDate() <= 21) && (dayOfWeek == 1 && curDate.getUTCMonth() == 1)) {
             // Fourth Thursday of November, Thanksgiving
             SSH = 1;
-        } else if (curDate.getMonth() == 5 && curDate.getDate() == 19) {
+        } else if (curDate.getUTCMonth() == 5 && curDate.getUTCDate() == 19) {
             // Juneteenth, non-weekend
             SSH = 1;
-        } else if ((curDate.getMonth() == 5 && curDate.getDate() == 20) && dayOfWeek == 1) {
+        } else if ((curDate.getUTCMonth() == 5 && curDate.getUTCDate() == 20) && dayOfWeek == 1) {
             // Sunday Juneteenth, Observed Monday
             SSH = 1;
-        } else if ((curDate.getMonth() == 5 && curDate.getDate() == 18) && dayOfWeek == 5) {
+        } else if ((curDate.getUTCMonth() == 5 && curDate.getUTCDate() == 18) && dayOfWeek == 5) {
             // Saturday Juneteenth, observed Friday
             SSH = 1;
-        } else if (curDate.getMonth() == 6 && curDate.getDate() == 4) {
+        } else if (curDate.getUTCMonth() == 6 && curDate.getUTCDate() == 4) {
             // Independence Day, non-weekend
             SSH = 1;
-        } else if ((curDate.getMonth() == 6 && curDate.getDate() == 5) && dayOfWeek == 1) {
+        } else if ((curDate.getUTCMonth() == 6 && curDate.getUTCDate() == 5) && dayOfWeek == 1) {
             // Sunday Independence Day, Observed Monday
             SSH = 1;
-        } else if ((curDate.getMonth() == 6 && curDate.getDate() == 3) && dayOfWeek == 5) {
+        } else if ((curDate.getUTCMonth() == 6 && curDate.getUTCDate() == 3) && dayOfWeek == 5) {
             // Saturday Independence Day, observed Friday
             SSH = 1;
-        } else if (curDate.getMonth() == 10 && curDate.getDate() == 11) {
+        } else if (curDate.getUTCMonth() == 10 && curDate.getUTCDate() == 11) {
             // Veterans' Day, non-weekend
             SSH = 1;
-        } else if ((curDate.getMonth() == 10 && curDate.getDate() == 12) && dayOfWeek == 1) {
+        } else if ((curDate.getUTCMonth() == 10 && curDate.getUTCDate() == 12) && dayOfWeek == 1) {
             // Sunday Veterans' Day, Observed Monday
             SSH = 1;
-        } else if ((curDate.getMonth() == 10 && curDate.getDate() == 10) && dayOfWeek == 5) {
+        } else if ((curDate.getUTCMonth() == 10 && curDate.getUTCDate() == 10) && dayOfWeek == 5) {
             // Saturday Veterans' Day, observed Friday
             SSH = 1;
-        } else if (curDate.getMonth() == 11 && curDate.getDate() == 25) {
+        } else if (curDate.getUTCMonth() == 11 && curDate.getUTCDate() == 25) {
             // Christmas, non-weekend
             SSH = 1;
-        } else if ((curDate.getMonth() == 11 && curDate.getDate() == 26) && dayOfWeek == 1) {
+        } else if ((curDate.getUTCMonth() == 11 && curDate.getUTCDate() == 26) && dayOfWeek == 1) {
             // Sunday Christmas, Observed Monday
             SSH = 1;
-        } else if ((curDate.getMonth() == 11 && curDate.getDate() == 24) && dayOfWeek == 5) {
+        } else if ((curDate.getUTCMonth() == 11 && curDate.getUTCDate() == 24) && dayOfWeek == 5) {
             // Saturday Christmas, observed Friday
             SSH = 1;
         }
         // Increase day count if day is not holiday or weekend
         if (curChoice == 'LWOP') {
-            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
             console.log(SSH.toString());
             console.log(count.toString());
         }
@@ -170,7 +170,7 @@ async function modifyPdf() {
         while (zeroCheck == 0) {
             if (curChoice == 'Shore' && count == shoreDays) {
                 console.log('Shore end if check entered');
-                endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+                endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Shore') {
                     curChoice = secondChoice;
@@ -182,7 +182,7 @@ async function modifyPdf() {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Annual' && count == annualDays) {
-                endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+                endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Annual') {
                     curChoice = secondChoice;
@@ -194,7 +194,7 @@ async function modifyPdf() {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Compensatory' && count == compDays) {
-                endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+                endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Compensatory') {
                     curChoice = secondChoice;
@@ -206,7 +206,7 @@ async function modifyPdf() {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Sick' && count == sickDays) {
-                endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+                endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Sick') {
                     curChoice = secondChoice;
@@ -222,34 +222,31 @@ async function modifyPdf() {
             }
         }
         //Check if last loop, set final end date
-        if (curDate >= endDate) {
-            console.log('Loop #' + debugCount + ': curDate >= endDate; curChoice: ' + curChoice);
-        }
-        if (curChoice == 'Shore' && curDate >= endDate) {
-            endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+        if (curChoice == 'Shore' && curDate.getMilliseconds() >= endDate.getMilliseconds()) {
+            endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             shoreDays = count;
         }
-        if (curChoice == 'Annual' && curDate >= endDate) {
-            endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+        if (curChoice == 'Annual' && curDate.getMilliseconds() >= endDate.getMilliseconds()) {
+            endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             annualDays = count;
         }
-        if (curChoice == 'Compensatory' && curDate >= endDate) {
-            endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+        if (curChoice == 'Compensatory' && curDate.getMilliseconds() >= endDate.getMilliseconds()) {
+            endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             compDays = count;
         }
-        if (curChoice == 'Sick' && curDate >= endDate) {
-            endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+        if (curChoice == 'Sick' && curDate.getMilliseconds() >= endDate.getMilliseconds()) {
+            endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             sickDays = count;
         }
-        if (curChoice == 'LWOP' && curDate >= endDate) {
-            endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"});
+        if (curChoice == 'LWOP' && curDate.getMilliseconds() >= endDate.getMilliseconds()) {
+            endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             console.log('LWOP End');
             console.log(curDate.toUTCString());
-            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
             LWOPDays = count;
         }
 
-        curDate.setDate(curDate.getDate() + 1);
+        curDate.setDate(curDate.getUTCMilliseconds() + 86400000);
         debugCount++;
     }
 
@@ -265,8 +262,8 @@ async function modifyPdf() {
 
     let curDatems = curDate.getMilliseconds();
     let endDatems = endDate.getMilliseconds();
-    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
-    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
+    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
 
     
 
