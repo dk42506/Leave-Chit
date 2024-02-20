@@ -29,9 +29,15 @@ async function modifyPdf() {
     let startDate = new Date(dateStartString);
     let endDate = new Date(dateEndString);
 
+    console.log('Original Start Date: ' + startDate.toUTCString());
+    console.log('Original End Date: ' + endDate.toUTCString());
+
     let timeOffset = startDate.getTimezoneOffset();
     startDate.setMinutes(timeOffset);
     endDate.setMinutes(timeOffset);
+
+    console.log('Adjusted Start Date: ' + startDate.toUTCString());
+    console.log('Adjusted End Date: ' + endDate.toUTCString());
 
     let count = 0;
     const curDate = new Date(startDate.getTime());
@@ -64,7 +70,8 @@ async function modifyPdf() {
     while (curDate <= endDate) {
         console.log('Loop: ' + debugCount.toString());
         console.log('curChoice: ' + curChoice);
-        console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"}));
+        console.log('Current Date: ' + curDate.toUTCString());
+        console.log('End Date: ' + endDate.toUTCString());
         SSH = 0;
         zeroCheck = 0;
 
