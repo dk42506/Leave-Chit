@@ -67,11 +67,11 @@ async function modifyPdf() {
     let startDateLWOPString = '';
     let endDateLWOPString = '';
 
-    while (curDate.getMilliseconds() <= endDate.getMilliseconds()) {
+    while (curDate.getUTCMilliseconds() <= endDate.getUTCMilliseconds()) {
         console.log('Loop: ' + debugCount.toString());
         console.log('curChoice: ' + curChoice);
-        console.log('Current Date: ' + curDate.toUTCString());
-        console.log('End Date: ' + endDate.toUTCString());
+        console.log('Current Date: ' + curDate.toUTCString() + ' | ' + curDate.getUTCMilliseconds() + ' ms');
+        console.log('End Date: ' + endDate.toUTCString() + ' | ' + endDate.getUTCMilliseconds() + ' ms');
         SSH = 0;
         zeroCheck = 0;
 
