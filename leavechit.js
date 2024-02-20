@@ -246,7 +246,7 @@ async function modifyPdf() {
             LWOPDays = count;
         }
 
-        curDate.setDate(curDate.getUTCMilliseconds() + 86400000);
+        curDate.setUTCDate(curDate.getUTCDate() + 1);
         debugCount++;
     }
 
