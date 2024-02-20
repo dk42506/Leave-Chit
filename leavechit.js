@@ -159,11 +159,11 @@ async function modifyPdf() {
             SSH = 1;
         }
         // Increase day count if day is not holiday or weekend
-        if (curChoice == 'LWOP') {
-            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-            console.log(SSH.toString());
-            console.log(count.toString());
-        }
+
+        console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
+        console.log(SSH.toString());
+        console.log(count.toString());
+
         if (SSH == 0) count++;
 
         // Check if count exceeds leave available for current choice, move to next choice
@@ -182,6 +182,7 @@ async function modifyPdf() {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Annual' && count == annualDays) {
+                console.log('Annual end if check entered');
                 endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Annual') {
