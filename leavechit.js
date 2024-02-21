@@ -282,7 +282,7 @@ async function modifyPdf() {
     // Load logo image from bytes
 	const pngLogo = await pdfDoc.embedPng(pngLogoBytes);
     
-    const pngLogoDims = pngImage.scale(0.5);
+    const pngLogoDims = pngLogo.scale(0.5);
     
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
