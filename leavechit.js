@@ -374,6 +374,12 @@ async function modifyPdf() {
         width: pngLogoDims.width,
         height: pngLogoDims.height
     })
+    firstPage.drawImage(pngLogo, {
+    	x: firstPage.getWidth() - pngLogoDims.width - 2,
+        y: firstPage.getHeight() - pngLogoDims.height - 2,
+        width: pngLogoDims.width,
+        height: pngLogoDims.height
+    })
     
     // Serialize the PDFDocument to bytes (a Uint8Array)
     const pdfBytes = await pdfDoc.save({dataUri: true})
