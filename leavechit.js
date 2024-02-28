@@ -273,7 +273,7 @@ async function modifyPdf() {
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
     
     // Fetch logo image
-	const pngLogoUrl = 'Images/Artboard 1.png';
+	const pngLogoUrl = 'Images/Artboard 2.png';
     const pngLogoBytes = await fetch(pngLogoUrl).then((res) => res.arrayBuffer());
 
     // Load a PDFDocument from the existing PDF bytes
@@ -282,7 +282,7 @@ async function modifyPdf() {
     // Load logo image from bytes
 	const pngLogo = await pdfDoc.embedPng(pngLogoBytes);
     
-    const pngLogoDims = pngLogo.scale(0.5);
+    const pngLogoDims = pngLogo.scale(0.05);
     
     const pages = pdfDoc.getPages();
     const firstPage = pages[0];
@@ -371,8 +371,8 @@ async function modifyPdf() {
 	firstPage.drawImage(pngLogo, {
     	x: 5, // firstPage.getWidth() / 2 - pngLogoDims.width / 2,
         y: 5, // firstPage.getHeight() - pngLogoDims.height - 10,
-        width: pngLogoDims.width / 8,
-        height: pngLogoDims.height / 8
+        width: pngLogoDims.width,
+        height: pngLogoDims.height
     })
     
     // Serialize the PDFDocument to bytes (a Uint8Array)
