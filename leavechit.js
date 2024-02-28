@@ -370,7 +370,7 @@ async function modifyPdf() {
     console.log('Height: ' + firstPage.getHeight())
 	firstPage.drawImage(pngLogo, {
     	x: 5, // firstPage.getWidth() / 2 - pngLogoDims.width / 2,
-        y: 770, //firstPage.getHeight() / 2 - pngLogoDims.height / 2 + 250,
+        y: firstPage.getHeight() - pngLogoDims.height - 10,
         width: pngLogoDims.width / 10,
         height: pngLogoDims.height / 10
     })
