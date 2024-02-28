@@ -375,10 +375,10 @@ async function modifyPdf() {
         height: pngLogoDims.height
     })
     firstPage.drawImage(pngLogo, {
-    	x: firstPage.getWidth() - pngLogoDims.width - 2,
-        y: firstPage.getHeight() - pngLogoDims.height - 2,
-        width: pngLogoDims.width,
-        height: pngLogoDims.height
+    	x: firstPage.getWidth() - (pngLogoDims.width * 0.9) - 5,
+        y: firstPage.getHeight() - (pngLogoDims.height * 0.9) - 5,
+        width: pngLogoDims.width * 0.9,
+        height: pngLogoDims.height * 0.9
     })
     
     // Serialize the PDFDocument to bytes (a Uint8Array)
