@@ -370,9 +370,9 @@ async function modifyPdf() {
     console.log('Height: ' + firstPage.getHeight())
 	firstPage.drawImage(pngLogo, {
     	x: 5, // firstPage.getWidth() / 2 - pngLogoDims.width / 2,
-        y: firstPage.getHeight() - pngLogoDims.height - 10,
-        width: pngLogoDims.width / 10,
-        height: pngLogoDims.height / 10
+        y: 5, // firstPage.getHeight() - pngLogoDims.height - 10,
+        width: pngLogoDims.width / 8,
+        height: pngLogoDims.height / 8
     })
     
     // Serialize the PDFDocument to bytes (a Uint8Array)
