@@ -269,11 +269,11 @@ async function modifyPdf() {
     
 
     // Fetch an existing PDF document
-    const url = 'opm71_fillable.pdf';
-  	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
+    const url = 'https://cdn.shopify.com/s/files/1/0875/2126/3925/files/opm71_fillable.pdf?v=1713049250';
+	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
     
     // Fetch logo image
-	const pngLogoUrl = 'Images/Artboard 2.png';
+	const pngLogoUrl = 'https://cdn.shopify.com/s/files/1/0875/2126/3925/files/Artboard_2.png?v=1713049251';
     const pngLogoBytes = await fetch(pngLogoUrl).then((res) => res.arrayBuffer());
 
     // Load a PDFDocument from the existing PDF bytes
