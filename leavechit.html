@@ -3,24 +3,134 @@
 
 <head>
   <style>
-    p {
-      color: rgb(0, 0, 0);
-      text-indent: 30px;
-      font-family: Arial, Helvetica, sans-serif, sans;
-      background: rgb(200, 200, 200)
-    }
     body {
-      background-color: rgb(200, 200, 200);
+      background-color: #f4f4f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
     }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 20px;
+    }
+
+    p {
+      margin: 15px 0;
+    }
+
+    label {
+      display: inline-block;
+      width: 120px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: calc(100% - 120px);
+      padding: 8px;
+      margin-left: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
     .column {
-      float: left;
-      width: 35%;
+      flex: 1;
+      min-width: 300px;
       padding: 10px;
     }
+
     .row:after {
       content: "";
       display: table;
       clear: both;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    iframe {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .name-ssn-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      margin-top: 50px;
+    }
+
+    .name-ssn-row p {
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    .name-ssn-row label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .name-ssn-row input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .instructions {
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .leave-order-title {
+      text-align: center;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .les-snippet {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .les-snippet + img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 20px auto;
     }
   </style>
   <meta charset="utf-8">
@@ -35,127 +145,178 @@
 </head>
 
 <body>
-  <p name="Title" style="font-size: 24px; font-style: italic">
-    Leave Chit Calculator
-  </p>
-  <p name="Name">
-    Name:
-  </p>
-  <p name="Name Input">
-    <label for="First Name" style="padding-left: 20px">
-      First:
-    </label>
-    <input type="text" size="10" id="First Name" name="First Name">
-    <label for="Middle Name" style="padding-left: 20px">
-      Middle:
-    </label>
-    <input type="text" size="10" id="Middle Name" name="Middle Name">
-    <label for="Last Name" style="padding-left: 20px">
-      Last:
-    </label>
-    <input type="text" size="10" id="Last Name" name="Last Name">
-  </p>
-  <p>
-    <label for="Employee ID">
-      SSN Last Four:
-    </label>
-    <input type="text" size="10" id="Employee ID" name="Employee ID">
-  </p>
-  <p name="Leave">
-    Available Leave:
-  </p>
-  <div class="row">
-    <div class="column">
+  <div class="container">
+    <h1>Leave Chit Calculator</h1>
+    <div class="instructions">
+      <p>Leave Chit Calculator Instructions</p>
+      <ol>
+        <li>Insert your Name and the last 4 of your Social Security Number into the designated box. If you do not wish to provide your last 4, you can enter 0000.</li>
+        <li>Enter in your available leave balances in the designated boxes. Your current leave balances can be found on your most recent Leave and Earnings Statement (LES) which can be found on MyPay.</li>
+        <li>Enter the order in which you would like you leave to be charged via the priority boxes.</li>
+        <li>Enter the dates for your leave start and end date.</li>
+        <li>Click “Generate Leave Chit”. The created form will open. Save it and submit to your detailer.</li>
+      </ol>
+      <p>Important Note:</p>
+      <ol>
+        <li>If you are not in a Not Fit For Duty (NFFD) status, you cannot use more than 3 days of Sick Leave in a Pay Period. If you request sick leave while not in a NFFD status, your detailer will likely disapprove your leave request which may result in you not being paid for the pay period. Contact your detailer to determine your current Medical Status.</li>
+        <li>It is recommended that you ask your detailer for a “screenshot” from HRMS for proof of Leave Chit acceptance.</li>
+      </ol>
+    </div>
+    <div class="name-ssn-row">
       <p>
-        <label for="Annual Hours" style="padding-left: 20px">
-          Annual:
-        </label>
-        <input type="number" id="Annual Hours" name="Annual Hours" style="width: 45px">
-          Hrs
+        <label for="First Name">First:</label>
+        <input type="text" id="First Name" name="First Name">
       </p>
       <p>
-        <label for="Comp Hours" style="padding-left: 20px">
-          Compensatory:
-        </label>
-        <input type="number" id="Comp Hours" name="Comp Hours" style="width: 45px">
-          Hrs
+        <label for="Middle Name">Middle:</label>
+        <input type="text" id="Middle Name" name="Middle Name">
       </p>
       <p>
-        <label for="Sick Hours" style="padding-left: 20px">
-          Sick:
-        </label>
-        <input type="number" id="Sick Hours" name="Sick Hours" style="width: 45px">
-          Hrs
+        <label for="Last Name">Last:</label>
+        <input type="text" id="Last Name" name="Last Name">
       </p>
       <p>
-        <label for="Shore Days" style="padding-left: 20px">
-          Shore:
-        </label>
-        <input type="number" id="Shore Days" name="Shore Days" style="width: 45px">
+        <label for="Employee ID">SSN Last Four:</label>
+        <input type="text" id="Employee ID" name="Employee ID">
+      </p>
+    </div>
+
+    <div class="duty-status-row">
+      <p>
+        <label for="Duty Status">Duty Status:</label>
+        <select id="Duty Status" name="Duty Status" onchange="handleDutyStatusChange()">
+          <option value="FFD">Fit For Duty (FFD)</option>
+          <option value="NFFD">Not Fit For Duty (NFFD)</option>
+        </select>
+      </p>
+    </div>
+
+    <p class="les-snippet" style="font-weight: bold;">Your current leave balances can be found on your most recent LES.</p>
+    <img src="les_leave.svg" alt="Leave and Earnings Statement Example" />
+    <p style="font-weight: bold;">Available Leave:</p>
+    <div class="row">
+      <div class="column">
+        <p>
+          <label for="Annual Hours" style="color: #007BFF;">Annual:</label>
+          <input type="number" id="Annual Hours" name="Annual Hours">
+          Hrs
+        </p>
+        <p>
+          <label for="Sick Hours" style="color: #FF3131;">Sick:</label>
+          <input type="number" id="Sick Hours" name="Sick Hours">
+          Hrs
+        </p>
+        <p>
+          <label for="Comp Hours" style="color: #FFDE59;">Compensatory:</label>
+          <input type="number" id="Comp Hours" name="Comp Hours">
+          Hrs
+        </p>
+        <p>
+          <label for="Travel Comp Hours" style="color: #8C52FF;">Travel Comp:</label>
+          <input type="number" id="Travel Comp Hours" name="Travel Comp Hours">
+          Hrs
+        </p>
+        <p>
+          <label for="Time Off AWD Hours" style="color: #00BF63;">Time Off AWD:</label>
+          <input type="number" id="Time Off AWD Hours" name="Time Off AWD Hours">
+          Hrs
+        </p>
+        <p>
+          <label for="Shore Days" style="color: #FF66C4;">Shore:</label>
+          <input type="number" id="Shore Days" name="Shore Days">
           Days
-      </p>
+        </p>
+      </div>
+      <div class="column">
+        <p>
+          <label for="Leave First">First Priority:</label>
+          <select name="Leave First" id="Leave First">
+            <option value="Annual">Annual</option>
+            <option value="Sick">Sick</option>
+            <option value="Compensatory">Compensatory</option>
+            <option value="Travel Comp">Travel Comp</option>
+            <option value="Time Off AWD">Time Off AWD</option>
+            <option value="Shore">Shore</option>
+          </select>
+        </p>
+        <p>
+          <label for="Leave Second">Second Priority:</label>
+          <select name="Leave Second" id="Leave Second">
+            <option value="Annual">Annual</option>
+            <option value="Sick">Sick</option>
+            <option value="Compensatory">Compensatory</option>
+            <option value="Travel Comp">Travel Comp</option>
+            <option value="Time Off AWD">Time Off AWD</option>
+            <option value="Shore">Shore</option>
+          </select>
+        </p>
+        <p>
+          <label for="Leave Third">Third Priority:</label>
+          <select name="Leave Third" id="Leave Third">
+            <option value="Annual">Annual</option>
+            <option value="Sick">Sick</option>
+            <option value="Compensatory">Compensatory</option>
+            <option value="Travel Comp">Travel Comp</option>
+            <option value="Time Off AWD">Time Off AWD</option>
+            <option value="Shore">Shore</option>
+          </select>
+        </p>
+        <p>
+          <label for="Leave Fourth">Fourth Priority:</label>
+          <select name="Leave Fourth" id="Leave Fourth">
+            <option value="Annual">Annual</option>
+            <option value="Sick">Sick</option>
+            <option value="Compensatory">Compensatory</option>
+            <option value="Travel Comp">Travel Comp</option>
+            <option value="Time Off AWD">Time Off AWD</option>
+            <option value="Shore">Shore</option>
+          </select>
+        </p>
+        <p>
+          <label for="Leave Fifth">Fifth Priority:</label>
+          <select name="Leave Fifth" id="Leave Fifth">
+            <option value="Annual">Annual</option>
+            <option value="Sick">Sick</option>
+            <option value="Compensatory">Compensatory</option>
+            <option value="Travel Comp">Travel Comp</option>
+            <option value="Time Off AWD">Time Off AWD</option>
+            <option value="Shore">Shore</option>
+          </select>
+        </p>
+        <p>
+          <label for="Leave Sixth">Sixth Priority:</label>
+          <select name="Leave Sixth" id="Leave Sixth">
+            <option value="Annual">Annual</option>
+            <option value="Sick">Sick</option>
+            <option value="Compensatory">Compensatory</option>
+            <option value="Travel Comp">Travel Comp</option>
+            <option value="Time Off AWD">Time Off AWD</option>
+            <option value="Shore">Shore</option>
+          </select>
+        </p>
+      </div>
     </div>
-    <div class="column">
-      <p>
-        <label for="Leave First">First Priority:</label>
-        <select name="Leave First" id="Leave First">
-          <option value="Shore">Shore</option>
-          <option value="Annual">Annual</option>
-          <option value="Compensatory">Compensatory</option>
-          <option value="Sick">Sick</option>
-        </select>
-      </p>
-      <p>
-        <label for="Leave Second">Second Priority:</label>
-        <select name="Leave Second" id="Leave Second">
-          <option value="Annual">Annual</option>
-          <option value="Compensatory">Compensatory</option>
-          <option value="Sick">Sick</option>
-          <option value="Shore">Shore</option>
-        </select>
-      </p>
-      <p>
-        <label for="Leave Third">Third Priority:</label>
-        <select name="Leave Third" id="Leave Third">
-          <option value="Compensatory">Compensatory</option>
-          <option value="Sick">Sick</option>
-          <option value="Shore">Shore</option>
-          <option value="Annual">Annual</option>
-        </select>
-      </p>
-      <p>
-        <label for="Leave Fourth">Fourth Priority:</label>
-        <select name="Leave Fourth" id="Leave Fourth">
-          <option value="Sick">Sick</option>
-          <option value="Shore">Shore</option>
-          <option value="Annual">Annual</option>
-          <option value="Compensatory">Compensatory</option>
-        </select>
-      </p>
+    <div class="row">
+      <div class="column">
+        <p>
+          <label for="Date Start">Date Start:</label>
+          <input type="date" id="Date Start" name="Date Start">
+        </p>
+      </div>
+      <div class="column">
+        <p>
+          <label for="Date End">Date End:</label>
+          <input type="date" id="Date End" name="Date End">
+        </p>
+      </div>
     </div>
+    <p style="text-align: center;">
+      <button onclick="modifyPdf()">Generate Leave Chit</button>
+    </p>
+    <p style="text-align: center;">
+      <iframe id="pdf"></iframe>
+    </p>
   </div>
-  <div class="row">
-    <div class="column">
-      <p>
-        <label for="Date Start" style="padding-left: 20px">Date Start:</label>
-        <input type="date" id="Date Start" name="Date Start" style="width: 100px">
-      </p>
-    </div>
-    <div class="column">
-      <p>
-        <label for="Date End:">Date End:</label>
-        <input type="date" id="Date End" name="Date End" style="width: 100px">
-      </p>
-    </div>
-  </div>
-  <p style="text-align: center;">
-    <button onclick="modifyPdf()">
-      Generate Leave Chit
-    </button>
-  </p>
-  <p style="text-align: center;">
-    <iframe width="75%" height="450" id="pdf"></iframe>
-  </p>
 </body>
 
 </html>
