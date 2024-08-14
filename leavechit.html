@@ -185,9 +185,12 @@
       <p>
         <label for="Duty Status">Duty Status:</label>
         <select id="Duty Status" name="Duty Status" onchange="handleDutyStatusChange()">
-          <option value="FFD">Fit For Duty (FFD)</option>
           <option value="NFFD">Not Fit For Duty (NFFD)</option>
+          <option value="FFD">Fit For Duty (FFD)</option>
         </select>
+      </p>
+      <p style="display:none" id="duty-status-warning">
+        Unless you are Not Fit For Duty “NFFD”, you cannot use more than 3 days of sick leave. If you submit a leave chit with more than 3 days of sick leave, your Detailer will disapprove it. If you wish to submit a leave chit with sick leave anyway, please check “NFFD” and submit at your own risk of rejection.
       </p>
     </div>
 
@@ -318,5 +321,19 @@
     </p>
   </div>
 </body>
+
+<script>
+  function handleDutyStatusChange() {
+    console.log("Handling duty status change");
+    const dutyStatus = document.getElementById("Duty Status").value;
+    if (dutyStatus === "FFD") {
+      document.getElementById("Sick Hours").disabled = true;
+      document.getElementById("duty-status-warning").style.display = "block";
+    } else {
+      document.getElementById("Sick Hours").disabled = false;
+      document.getElementById("duty-status-warning").style.display = "none";
+    }
+  }
+</script>
 
 </html>
