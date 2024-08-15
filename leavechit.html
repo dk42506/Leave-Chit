@@ -201,32 +201,32 @@
       <div class="column">
         <p>
           <label for="Annual Hours" style="color: #007BFF;">Annual:</label>
-          <input type="number" id="Annual Hours" name="Annual Hours">
+          <input type="number" id="Annual Hours" name="Annual Hours" is0=false onchange="handleLeaveChange('Annual Hours')">
           Hrs
         </p>
         <p>
           <label for="Sick Hours" style="color: #FF3131;">Sick:</label>
-          <input type="number" id="Sick Hours" name="Sick Hours">
+          <input type="number" id="Sick Hours" name="Sick Hours" onchange="handleLeaveChange('Sick Hours')">
           Hrs
         </p>
         <p>
           <label for="Comp Hours" style="color: #FFDE59;">Compensatory:</label>
-          <input type="number" id="Comp Hours" name="Comp Hours">
+          <input type="number" id="Comp Hours" name="Comp Hours" onchange="handleLeaveChange('Comp Hours')">
           Hrs
         </p>
         <p>
           <label for="Travel Comp Hours" style="color: #8C52FF;">Travel Comp:</label>
-          <input type="number" id="Travel Comp Hours" name="Travel Comp Hours">
+          <input type="number" id="Travel Comp Hours" name="Travel Comp Hours" onchange="handleLeaveChange('Travel Comp Hours')">
           Hrs
         </p>
         <p>
           <label for="Time Off AWD Hours" style="color: #00BF63;">Time Off AWD:</label>
-          <input type="number" id="Time Off AWD Hours" name="Time Off AWD Hours">
+          <input type="number" id="Time Off AWD Hours" name="Time Off AWD Hours" onchange="handleLeaveChange('Time Off AWD Hours')">
           Hrs
         </p>
         <p>
           <label for="Shore Days" style="color: #FF66C4;">Shore:</label>
-          <input type="number" id="Shore Days" name="Shore Days">
+          <input type="number" id="Shore Days" name="Shore Days" onchange="handleLeaveChange('Shore Days')">
           Days
         </p>
       </div>
@@ -322,9 +322,8 @@
   </div>
 </body>
 
-<script>
+<script> 
   function handleDutyStatusChange() {
-    console.log("Handling duty status change");
     const dutyStatus = document.getElementById("Duty Status").value;
     if (dutyStatus === "FFD") {
       document.getElementById("Sick Hours").disabled = true;
@@ -333,6 +332,53 @@
       document.getElementById("Sick Hours").disabled = false;
       document.getElementById("duty-status-warning").style.display = "none";
     }
+  }
+  var is0 = {
+    "Annual Hours": false,
+    "Sick Hours": false,
+    "Comp Hours": false,
+    "Travel Comp Hours": false,
+    "Time Off AWD Hours": false,
+    "Shore Days": false
+  }
+  function handleLeaveChange(leaveId) {
+    leave = document.getElementById(leaveId).value;
+    
+    if(leave == 0 && !is0[leaveId]) {
+      if(!document.getElementById("Leave Sixth").disabled) {
+        document.getElementById("Leave Sixth").disabled = true;
+      } else if (!document.getElementById("Leave Fifth").disabled) {
+        document.getElementById("Leave Fifth").disabled = true;
+      } else if (!document.getElementById("Leave Fourth").disabled) {
+        document.getElementById("Leave Fourth").disabled = true;
+      } else if (!document.getElementById("Leave Third").disabled) {
+        document.getElementById("Leave Third").disabled = true;
+      } else if (!document.getElementById("Leave Second").disabled) {
+        document.getElementById("Leave Second").disabled = true;
+      } else {
+        document.getElementById("Leave First").disabled = true;
+      }
+
+      is0[leaveId] = true;
+    } else {
+      if (leave != 0 && is0[leaveId]) {
+        if(document.getElementById("Leave First").disabled) {
+          document.getElementById("Leave First").disabled = false;
+        } else if (document.getElementById("Leave Second").disabled) {
+          document.getElementById("Leave Second").disabled = false;
+        } else if (document.getElementById("Leave Third").disabled) {
+          document.getElementById("Leave Third").disabled = false;
+        } else if (document.getElementById("Leave Fourth").disabled) {
+          document.getElementById("Leave Fourth").disabled = false;
+        } else if (document.getElementById("Leave Fifth").disabled) {
+          document.getElementById("Leave Fifth").disabled = false;
+        } else {
+          document.getElementById("Leave Sixth").disabled = false;
+        }
+
+        is0[leaveId] = false;
+      }
+    } 
   }
 </script>
 
