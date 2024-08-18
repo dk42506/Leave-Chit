@@ -36,6 +36,7 @@
       display: inline-block;
       width: 120px;
       font-weight: bold;
+      padding-bottom: 5px;
     }
 
     input[type="text"],
@@ -132,6 +133,28 @@
       height: auto;
       margin: 20px auto;
     }
+
+    .fmla-section {
+      margin-top: 20px;
+    }
+
+    .fmla-section p {
+      margin: 15px 0;
+    }
+
+    .fmla-section label {
+      display: inline-block;
+      width: 100%;
+      font-weight: bold;
+      padding-bottom: 5px;
+    }
+
+    .fmla-section select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
   </style>
   <meta charset="utf-8">
   <title>Leave Chit Calculator</title>
@@ -179,6 +202,26 @@
         <label for="Employee ID">SSN Last Four:</label>
         <input type="text" id="Employee ID" name="Employee ID">
       </p>
+    </div>
+
+    <div class="fmla-section">
+      <p>
+        <label for="fmla-leave">Are you going on approved FMLA Leave? Please note, FMLA must be approved via HR and the FMLA approval process:</label>
+        <select id="fmla-leave" name="fmla-leave" onchange="handleFMLAChange()">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+      </p>
+      <div id="fmla-reason-container" style="display: none;">
+        <p>
+          <label for="fmla-reason">What is your reason for FMLA?</label>
+          <select id="fmla-reason" name="fmla-reason">
+            <option value="Birth/Adoption/Foster Care">Birth/Adoption/Foster Care</option>
+            <option value="Serious health condition of spouse, son, daughter, or parent">Serious health condition of spouse, son, daughter, or parent</option>
+            <option value="Serious health condition of self">Serious health condition of self</option>
+          </select>
+        </p>
+      </div>
     </div>
 
     <div class="duty-status-row">
@@ -379,6 +422,17 @@
         is0[leaveId] = false;
       }
     } 
+  }
+
+  function handleFMLAChange() {
+    var fmlaLeave = document.getElementById("fmla-leave").value;
+    var fmlaReasonContainer = document.getElementById("fmla-reason-container");
+
+    if (fmlaLeave === "Yes") {
+      fmlaReasonContainer.style.display = "block";
+    } else {
+      fmlaReasonContainer.style.display = "none";
+    }
   }
 </script>
 
