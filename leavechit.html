@@ -155,6 +155,29 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+
+    .circle {
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .duty-status-row {
+      margin-bottom: 20px;
+    }
+
+    .duty-status-row select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .duty-status-warning {
+      color: #ff3131;
+    }
   </style>
   <meta charset="utf-8">
   <title>Leave Chit Calculator</title>
@@ -232,7 +255,7 @@
           <option value="FFD">Fit For Duty (FFD)</option>
         </select>
       </p>
-      <p style="display:none" id="duty-status-warning">
+      <p style="display:none" id="duty-status-warning" class="duty-status-warning">
         Unless you are Not Fit For Duty “NFFD”, you cannot use more than 3 days of sick leave. If you submit a leave chit with more than 3 days of sick leave, your Detailer will disapprove it. If you wish to submit a leave chit with sick leave anyway, please check “NFFD” and submit at your own risk of rejection.
       </p>
     </div>
@@ -243,32 +266,38 @@
     <div class="row">
       <div class="column">
         <p>
-          <label for="Annual Hours" style="color: #007BFF;">Annual:</label>
+          <span class="circle" style="background-color: #007BFF;"></span>
+          <label for="Annual Hours">Annual:</label>
           <input type="number" id="Annual Hours" name="Annual Hours" is0=false onchange="handleLeaveChange('Annual Hours')">
           Hrs
         </p>
         <p>
-          <label for="Sick Hours" style="color: #FF3131;">Sick:</label>
+          <span class="circle" style="background-color: #FF3131;"></span>
+          <label for="Sick Hours">Sick:</label>
           <input type="number" id="Sick Hours" name="Sick Hours" onchange="handleLeaveChange('Sick Hours')">
           Hrs
         </p>
         <p>
-          <label for="Comp Hours" style="color: #FFDE59;">Compensatory:</label>
+          <span class="circle" style="background-color: #FFDE59;"></span>
+          <label for="Comp Hours">Compensatory:</label>
           <input type="number" id="Comp Hours" name="Comp Hours" onchange="handleLeaveChange('Comp Hours')">
           Hrs
         </p>
         <p>
-          <label for="Travel Comp Hours" style="color: #8C52FF;">Travel Comp:</label>
+          <span class="circle" style="background-color: #8C52FF;"></span>
+          <label for="Travel Comp Hours">Travel Comp:</label>
           <input type="number" id="Travel Comp Hours" name="Travel Comp Hours" onchange="handleLeaveChange('Travel Comp Hours')">
           Hrs
         </p>
         <p>
-          <label for="Time Off AWD Hours" style="color: #00BF63;">Time Off AWD:</label>
+          <span class="circle" style="background-color: #00BF63;"></span>
+          <label for="Time Off AWD Hours">Time Off AWD:</label>
           <input type="number" id="Time Off AWD Hours" name="Time Off AWD Hours" onchange="handleLeaveChange('Time Off AWD Hours')">
           Hrs
         </p>
         <p>
-          <label for="Shore Days" style="color: #FF66C4;">Shore:</label>
+          <span class="circle" style="background-color: #FF66C4;"></span>
+          <label for="Shore Days">Shore:</label>
           <input type="number" id="Shore Days" name="Shore Days" onchange="handleLeaveChange('Shore Days')">
           Days
         </p>
@@ -365,7 +394,7 @@
   </div>
 </body>
 
-<script> 
+<script>
   function handleDutyStatusChange() {
     const dutyStatus = document.getElementById("Duty Status").value;
     if (dutyStatus === "FFD") {
@@ -376,6 +405,7 @@
       document.getElementById("duty-status-warning").style.display = "none";
     }
   }
+
   var is0 = {
     "Annual Hours": false,
     "Sick Hours": false,
@@ -384,11 +414,12 @@
     "Time Off AWD Hours": false,
     "Shore Days": false
   }
+
   function handleLeaveChange(leaveId) {
     leave = document.getElementById(leaveId).value;
-    
-    if(leave == 0 && !is0[leaveId]) {
-      if(!document.getElementById("Leave Sixth").disabled) {
+
+    if (leave == 0 && !is0[leaveId]) {
+      if (!document.getElementById("Leave Sixth").disabled) {
         document.getElementById("Leave Sixth").disabled = true;
       } else if (!document.getElementById("Leave Fifth").disabled) {
         document.getElementById("Leave Fifth").disabled = true;
@@ -405,7 +436,7 @@
       is0[leaveId] = true;
     } else {
       if (leave != 0 && is0[leaveId]) {
-        if(document.getElementById("Leave First").disabled) {
+        if (document.getElementById("Leave First").disabled) {
           document.getElementById("Leave First").disabled = false;
         } else if (document.getElementById("Leave Second").disabled) {
           document.getElementById("Leave Second").disabled = false;
@@ -421,7 +452,7 @@
 
         is0[leaveId] = false;
       }
-    } 
+    }
   }
 
   function handleFMLAChange() {
