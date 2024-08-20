@@ -268,11 +268,11 @@
       <p>
         <label for="Duty Status">Duty Status:</label>
         <select id="Duty Status" name="Duty Status" onchange="handleDutyStatusChange()">
-          <option value="NFFD">Not Fit For Duty (NFFD)</option>
           <option value="FFD">Fit For Duty (FFD)</option>
+          <option value="NFFD">Not Fit For Duty (NFFD)</option>
         </select>
       </p>
-      <p style="display:none" id="duty-status-warning" class="duty-status-warning">
+      <p id="duty-status-warning" class="duty-status-warning">
         Unless you are Not Fit For Duty “NFFD”, you cannot use more than 3 days (24 hours) of sick leave. If you submit a leave chit with more than 3 days of sick leave, your Detailer will disapprove it. If you wish to submit a leave chit with sick leave anyway, please check “NFFD” and submit at your own risk of rejection.
       </p>
     </div>
@@ -494,6 +494,14 @@
       if (fmlaLeave === "Yes") {
         fmlaReasonContainer.style.display = "block";
         document.getElementById("Duty Status").disabled = true;
+        document.getElementById("Comp Hours").disabled = true;
+        document.getElementById("Travel Comp Hours").disabled = true;
+        document.getElementById("Time Off AWD Hours").disabled = true;
+        document.getElementById("Shore Days").disabled = true;
+        document.getElementById("Leave Sixth").disabled = true;
+        document.getElementById("Leave Fifth").disabled = true;
+        document.getElementById("Leave Fourth").disabled = true;
+        document.getElementById("Leave Third").disabled = true;
       } else {
         fmlaReasonContainer.style.display = "none";
       }
