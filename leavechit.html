@@ -221,7 +221,7 @@
       </ol>
       <p>Important Note:</p>
       <ol>
-        <li>If you are not in a Not Fit For Duty (NFFD) status, you cannot use more than 3 days of Sick Leave in a Pay Period. If you request sick leave while not in a NFFD status, your detailer will likely disapprove your leave request which may result in you not being paid for the pay period. Contact your detailer to determine your current Medical Status.</li>
+        <li>If you are not in a Not Fit For Duty (NFFD) status, you cannot use more than 3 days (24 Hours) of Sick Leave in a Pay Period. If you request sick leave while not in a NFFD status, your detailer will likely disapprove your leave request which may result in you not being paid for the pay period. Contact your detailer to determine your current Medical Status.</li>
         <li>It is recommended that you ask your detailer for a “screenshot” from HRMS for proof of Leave Chit acceptance.</li>
       </ol>
     </div>
@@ -273,7 +273,7 @@
         </select>
       </p>
       <p style="display:none" id="duty-status-warning" class="duty-status-warning">
-        Unless you are Not Fit For Duty “NFFD”, you cannot use more than 3 days of sick leave. If you submit a leave chit with more than 3 days of sick leave, your Detailer will disapprove it. If you wish to submit a leave chit with sick leave anyway, please check “NFFD” and submit at your own risk of rejection.
+        Unless you are Not Fit For Duty “NFFD”, you cannot use more than 3 days (24 hours) of sick leave. If you submit a leave chit with more than 3 days of sick leave, your Detailer will disapprove it. If you wish to submit a leave chit with sick leave anyway, please check “NFFD” and submit at your own risk of rejection.
       </p>
     </div>
 
@@ -423,7 +423,7 @@
     function handleDutyStatusChange() {
       const dutyStatus = document.getElementById("Duty Status").value;
       if (dutyStatus === "FFD") {
-        document.getElementById("Sick Hours").disabled = true;
+        document.getElementById("Sick Hours").setAttribute("max", 24);
         document.getElementById("duty-status-warning").style.display = "block";
       } else {
         document.getElementById("Sick Hours").disabled = false;
@@ -442,6 +442,13 @@
 
     function handleLeaveChange(leaveId) {
       leave = document.getElementById(leaveId).value;
+
+      if(document.getElementById("Duty Status").value === "FFD" && leaveId === "Sick Hours" && leave > 24) {
+        console.log("test")
+        alert("You cannot use more than 24 hours of sick leave in a pay period while in a Fit For Duty status.");
+        document.getElementById("Sick Hours").value = 24;
+        return;
+      }
 
       if (leave == 0 && !is0[leaveId]) {
         if (!document.getElementById("Leave Sixth").disabled) {
@@ -486,6 +493,7 @@
 
       if (fmlaLeave === "Yes") {
         fmlaReasonContainer.style.display = "block";
+        document.getElementById("Duty Status").disabled = true;
       } else {
         fmlaReasonContainer.style.display = "none";
       }
