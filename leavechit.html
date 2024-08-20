@@ -178,6 +178,24 @@
     .duty-status-warning {
       color: #ff3131;
     }
+
+    .remarks-section {
+      margin-bottom: 20px;
+    }
+
+    .remarks-section label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .remarks-section textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
   </style>
   <meta charset="utf-8">
   <title>Leave Chit Calculator</title>
@@ -187,7 +205,6 @@
   <script src="https://unpkg.com/pdf-lib"></script>
   <script src="https://unpkg.com/downloadjs@1.4.7"></script>
   <script src="leavechit.js"></script>
-  <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -198,7 +215,7 @@
       <ol>
         <li>Insert your Name and the last 4 of your Social Security Number into the designated box. If you do not wish to provide your last 4, you can enter 0000.</li>
         <li>Enter in your available leave balances in the designated boxes. Your current leave balances can be found on your most recent Leave and Earnings Statement (LES) which can be found on MyPay.</li>
-        <li>Enter the order in which you would like you leave to be charged via the priority boxes.</li>
+        <li>Enter the order in which you would like your leave to be charged via the priority boxes.</li>
         <li>Enter the dates for your leave start and end date.</li>
         <li>Click “Generate Leave Chit”. The created form will open. Save it and submit to your detailer.</li>
       </ol>
@@ -371,6 +388,7 @@
         </p>
       </div>
     </div>
+    
     <div class="row">
       <div class="column">
         <p>
@@ -385,6 +403,14 @@
         </p>
       </div>
     </div>
+
+    <div class="remarks-section">
+      <p>
+        <label for="Remarks">Remarks:</label>
+        <textarea id="Remarks" name="Remarks" rows="4" placeholder="Enter any additional remarks here..."></textarea>
+      </p>
+    </div>
+    
     <p style="text-align: center;">
       <button onclick="modifyPdf()">Generate Leave Chit</button>
     </p>
@@ -392,79 +418,80 @@
       <iframe id="pdf"></iframe>
     </p>
   </div>
-</body>
 
-<script>
-  function handleDutyStatusChange() {
-    const dutyStatus = document.getElementById("Duty Status").value;
-    if (dutyStatus === "FFD") {
-      document.getElementById("Sick Hours").disabled = true;
-      document.getElementById("duty-status-warning").style.display = "block";
-    } else {
-      document.getElementById("Sick Hours").disabled = false;
-      document.getElementById("duty-status-warning").style.display = "none";
-    }
-  }
-
-  var is0 = {
-    "Annual Hours": false,
-    "Sick Hours": false,
-    "Comp Hours": false,
-    "Travel Comp Hours": false,
-    "Time Off AWD Hours": false,
-    "Shore Days": false
-  }
-
-  function handleLeaveChange(leaveId) {
-    leave = document.getElementById(leaveId).value;
-
-    if (leave == 0 && !is0[leaveId]) {
-      if (!document.getElementById("Leave Sixth").disabled) {
-        document.getElementById("Leave Sixth").disabled = true;
-      } else if (!document.getElementById("Leave Fifth").disabled) {
-        document.getElementById("Leave Fifth").disabled = true;
-      } else if (!document.getElementById("Leave Fourth").disabled) {
-        document.getElementById("Leave Fourth").disabled = true;
-      } else if (!document.getElementById("Leave Third").disabled) {
-        document.getElementById("Leave Third").disabled = true;
-      } else if (!document.getElementById("Leave Second").disabled) {
-        document.getElementById("Leave Second").disabled = true;
+  <script>
+    function handleDutyStatusChange() {
+      const dutyStatus = document.getElementById("Duty Status").value;
+      if (dutyStatus === "FFD") {
+        document.getElementById("Sick Hours").disabled = true;
+        document.getElementById("duty-status-warning").style.display = "block";
       } else {
-        document.getElementById("Leave First").disabled = true;
+        document.getElementById("Sick Hours").disabled = false;
+        document.getElementById("duty-status-warning").style.display = "none";
       }
+    }
 
-      is0[leaveId] = true;
-    } else {
-      if (leave != 0 && is0[leaveId]) {
-        if (document.getElementById("Leave First").disabled) {
-          document.getElementById("Leave First").disabled = false;
-        } else if (document.getElementById("Leave Second").disabled) {
-          document.getElementById("Leave Second").disabled = false;
-        } else if (document.getElementById("Leave Third").disabled) {
-          document.getElementById("Leave Third").disabled = false;
-        } else if (document.getElementById("Leave Fourth").disabled) {
-          document.getElementById("Leave Fourth").disabled = false;
-        } else if (document.getElementById("Leave Fifth").disabled) {
-          document.getElementById("Leave Fifth").disabled = false;
+    var is0 = {
+      "Annual Hours": false,
+      "Sick Hours": false,
+      "Comp Hours": false,
+      "Travel Comp Hours": false,
+      "Time Off AWD Hours": false,
+      "Shore Days": false
+    }
+
+    function handleLeaveChange(leaveId) {
+      leave = document.getElementById(leaveId).value;
+
+      if (leave == 0 && !is0[leaveId]) {
+        if (!document.getElementById("Leave Sixth").disabled) {
+          document.getElementById("Leave Sixth").disabled = true;
+        } else if (!document.getElementById("Leave Fifth").disabled) {
+          document.getElementById("Leave Fifth").disabled = true;
+        } else if (!document.getElementById("Leave Fourth").disabled) {
+          document.getElementById("Leave Fourth").disabled = true;
+        } else if (!document.getElementById("Leave Third").disabled) {
+          document.getElementById("Leave Third").disabled = true;
+        } else if (!document.getElementById("Leave Second").disabled) {
+          document.getElementById("Leave Second").disabled = true;
         } else {
-          document.getElementById("Leave Sixth").disabled = false;
+          document.getElementById("Leave First").disabled = true;
         }
 
-        is0[leaveId] = false;
+        is0[leaveId] = true;
+      } else {
+        if (leave != 0 && is0[leaveId]) {
+          if (document.getElementById("Leave First").disabled) {
+            document.getElementById("Leave First").disabled = false;
+          } else if (document.getElementById("Leave Second").disabled) {
+            document.getElementById("Leave Second").disabled = false;
+          } else if (document.getElementById("Leave Third").disabled) {
+            document.getElementById("Leave Third").disabled = false;
+          } else if (document.getElementById("Leave Fourth").disabled) {
+            document.getElementById("Leave Fourth").disabled = false;
+          } else if (document.getElementById("Leave Fifth").disabled) {
+            document.getElementById("Leave Fifth").disabled = false;
+          } else {
+            document.getElementById("Leave Sixth").disabled = false;
+          }
+
+          is0[leaveId] = false;
+        }
       }
     }
-  }
 
-  function handleFMLAChange() {
-    var fmlaLeave = document.getElementById("fmla-leave").value;
-    var fmlaReasonContainer = document.getElementById("fmla-reason-container");
+    function handleFMLAChange() {
+      var fmlaLeave = document.getElementById("fmla-leave").value;
+      var fmlaReasonContainer = document.getElementById("fmla-reason-container");
 
-    if (fmlaLeave === "Yes") {
-      fmlaReasonContainer.style.display = "block";
-    } else {
-      fmlaReasonContainer.style.display = "none";
+      if (fmlaLeave === "Yes") {
+        fmlaReasonContainer.style.display = "block";
+      } else {
+        fmlaReasonContainer.style.display = "none";
+      }
     }
-  }
-</script>
+  </script>
+
+</body>
 
 </html>
