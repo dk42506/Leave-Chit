@@ -506,6 +506,17 @@
         document.getElementById("duty-status-warning").style.display = "none";
       } else {
         fmlaReasonContainer.style.display = "none";
+        document.getElementById("Duty Status").disabled = false;
+        document.getElementById("Comp Hours").disabled = false;
+        document.getElementById("Travel Comp Hours").disabled = false;
+        document.getElementById("Time Off AWD Hours").disabled = false;
+        document.getElementById("Shore Days").disabled = false;
+        document.getElementById("Leave Sixth").disabled = false;
+        document.getElementById("Leave Fifth").disabled = false;
+        document.getElementById("Leave Fourth").disabled = false;
+        document.getElementById("Leave Third").disabled = false;
+        document.getElementById("Duty Status").value = "FFD";
+        document.getElementById("duty-status-warning").style.display = "block";
       }
     }
   </script>
