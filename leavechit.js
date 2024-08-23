@@ -16,6 +16,8 @@ async function modifyPdf() {
     let compHours = document.getElementById('Comp Hours').value;
     let sickHours = document.getElementById('Sick Hours').value;
     let shoreDays = document.getElementById('Shore Days').value;
+    let fmla = document.getElementById('fmla-leave').value;
+    let fmlaeReason = document.getElementById('fmla-reason').value;
 
     console.log(firstChoice);
     
@@ -290,8 +292,8 @@ async function modifyPdf() {
 
     // Get PDFDocument Form Fields
     const form = pdfDoc.getForm();
-    //const fields = form.getFields();
-    //fields.forEach(field => {
+    // const fields = form.getFields();
+    // fields.forEach(field => {
     //    const type = field.constructor.name;
     //    const name = field.getName();
     //    var fieldText = '';
@@ -309,7 +311,7 @@ async function modifyPdf() {
     //        }
     //    }
     //    console.log(`${type}: ${name}: ${fieldText}: ${fieldChecked}`);
-    //})
+    // })
 
     //Convert Final days to hours
     annualHours = annualDays * 8;
@@ -363,6 +365,17 @@ async function modifyPdf() {
         form.getTextField('form1[0].#subform[0].Table7[0].Row3[0].DateTimeField29[0]').setText('8:00:00 AM');
         form.getTextField('form1[0].#subform[0].Table7[0].Row3[0].DateTimeField32[0]').setText('5:00:00 PM');
         form.getTextField('form1[0].#subform[0].Table7[0].Row3[0].TextField[0]').setText(LWOPHours.toString());
+    }
+
+    if (fmla == 'Yes') {
+        form.getCheckBox('form1[0].#subform[0].CheckBox2[0]').check();
+        if (fmlaeReason == 'Birth/Adoption/Foster Care') {
+            form.getCheckBox('form1[0].#subform[0].CheckBox2[1]').check();
+        } else if (fmlaeReason == 'Serious health condition of spouse, son, daughter, or parent') {
+            form.getCheckBox('form1[0].#subform[0].CheckBox2[2]').check();
+        } else if (fmlaeReason == 'Serious health condition of self') {
+            form.getCheckBox('form1[0].#subform[0].CheckBox2[3]').check();
+        }
     }
 
 	//Draw logo on page
