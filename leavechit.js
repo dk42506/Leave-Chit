@@ -385,7 +385,7 @@ async function modifyPdf() {
     }
 
     // Set the remarks in the PDF
-    form.getTextField('form1[0].#subform[0].Table5[0].Row1[0].TextField[0]').setText(fullRemarks);
+    form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(fullRemarks);
 
 	//Draw logo on page
     console.log('Width: ' + firstPage.getWidth())
