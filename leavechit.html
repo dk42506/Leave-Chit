@@ -91,23 +91,29 @@
 
     .name-ssn-row {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       margin-bottom: 20px;
-      margin-top: 50px;
     }
 
     .name-ssn-row p {
       flex: 1;
       margin: 0 10px;
+      min-width: 200px;
     }
 
     .name-ssn-row label {
       display: block;
-      margin-bottom: 5px;
+      margin-top: 10px;
+      font-weight: bold;
     }
 
-    .name-ssn-row input[type="text"] {
+    .name-ssn-row input[type="text"],
+    .name-ssn-row input[type="email"] {
       width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
       box-sizing: border-box;
     }
 
@@ -241,6 +247,14 @@
       <p>
         <label for="Employee ID">SSN Last Four:</label>
         <input type="text" id="Employee ID" name="Employee ID" maxlength=4>
+      </p>
+      <p>
+        <label for="Phone Number">Phone:</label>
+        <input type="text" id="Phone Number" name="Phone Number" placeholder="(123) 456-7890">
+      </p>
+      <p>
+        <label for="Email">Email:</label>
+        <input type="email" id="Email" name="Email" placeholder="example@example.com">
       </p>
     </div>
 

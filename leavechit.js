@@ -18,6 +18,12 @@ async function modifyPdf() {
     let shoreDays = document.getElementById('Shore Days').value;
     let fmla = document.getElementById('fmla-leave').value;
     let fmlaeReason = document.getElementById('fmla-reason').value;
+    let phoneNumber = document.getElementById('Phone Number').value;
+    let email = document.getElementById('Email').value;
+    let remarks = document.getElementById('Remarks').value;
+
+    // Combine the remarks content
+    let fullRemarks = `Phone Number: ${phoneNumber}\nEmail: ${email}\nRemarks: ${remarks}`;
 
     console.log(firstChoice);
     
@@ -377,6 +383,9 @@ async function modifyPdf() {
             form.getCheckBox('form1[0].#subform[0].CheckBox2[3]').check();
         }
     }
+
+    // Set the remarks in the PDF
+    form.getTextField('form1[0].#subform[0].Table5[0].Row1[0].TextField[0]').setText(fullRemarks);
 
 	//Draw logo on page
     console.log('Width: ' + firstPage.getWidth())
