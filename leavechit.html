@@ -275,6 +275,9 @@
             <option value="Serious health condition of self">Serious health condition of self</option>
           </select>
         </p>
+        <p id="fmla-reason-warning" style="display: none;">
+          If you are on FMLA, the only allowable leave types are Annual and Sick.
+        </p>
       </div>
     </div>
 
@@ -467,16 +470,22 @@
       if (leave == 0 && !is0[leaveId]) {
         if (!document.getElementById("Leave Sixth").disabled) {
           document.getElementById("Leave Sixth").disabled = true;
+          document.getElementById("Leave Sixth").value = null;
         } else if (!document.getElementById("Leave Fifth").disabled) {
           document.getElementById("Leave Fifth").disabled = true;
+          document.getElementById("Leave Fifth").value = null;
         } else if (!document.getElementById("Leave Fourth").disabled) {
           document.getElementById("Leave Fourth").disabled = true;
+          document.getElementById("Leave Fourth").value = null;
         } else if (!document.getElementById("Leave Third").disabled) {
           document.getElementById("Leave Third").disabled = true;
+          document.getElementById("Leave Third").value = null;
         } else if (!document.getElementById("Leave Second").disabled) {
           document.getElementById("Leave Second").disabled = true;
+          document.getElementById("Leave Second").value = null;
         } else {
           document.getElementById("Leave First").disabled = true;
+          document.getElementById("Leave First").value = null;
         }
 
         is0[leaveId] = true;
@@ -504,9 +513,13 @@
     function handleFMLAChange() {
       var fmlaLeave = document.getElementById("fmla-leave").value;
       var fmlaReasonContainer = document.getElementById("fmla-reason-container");
+      var warning = document.getElementById("fmla-reason-warning");
 
       if (fmlaLeave === "Yes") {
         fmlaReasonContainer.style.display = "block";
+        warning.style.display = "block";
+        warning.style.color = "red";
+        warning.style.textAlign = "center";
         document.getElementById("Duty Status").disabled = true;
         document.getElementById("Comp Hours").disabled = true;
         document.getElementById("Travel Comp Hours").disabled = true;

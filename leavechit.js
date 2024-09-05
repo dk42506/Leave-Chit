@@ -10,12 +10,16 @@ async function modifyPdf() {
     let secondChoice = document.getElementById('Leave Second').value;
     let thirdChoice = document.getElementById('Leave Third').value;
     let fourthChoice = document.getElementById('Leave Fourth').value;
+    let fifthChoice = document.getElementById('Leave Fifth').value;
+    let sixthChoice = document.getElementById('Leave Sixth').value;
     let dateStartString = document.getElementById('Date Start').value;
     let dateEndString = document.getElementById('Date End').value;
     let annualHours = document.getElementById('Annual Hours').value;
     let compHours = document.getElementById('Comp Hours').value;
     let sickHours = document.getElementById('Sick Hours').value;
     let shoreDays = document.getElementById('Shore Days').value;
+    let travelHours = document.getElementById('Travel Comp Hours').value;
+    let timeAWD = document.getElementById('Time Off AWD Hours').value;
     let fmla = document.getElementById('fmla-leave').value;
     let fmlaeReason = document.getElementById('fmla-reason').value;
     let phoneNumber = document.getElementById('Phone Number').value;
@@ -23,22 +27,19 @@ async function modifyPdf() {
     let remarks = document.getElementById('Remarks').value;
 
     // Combine the remarks content
-    let fullRemarks = `Phone Number: ${phoneNumber}\nEmail: ${email}\nRemarks: ${remarks}`;
-
-    console.log(firstChoice);
+    let fullRemarks = `Please contact me at ${phoneNumber} / ${email}; ${remarks}`;
     
     //Declare leave days variables
     let annualDays = Math.floor(annualHours / 8);
     let compDays = Math.floor(compHours / 8);
     let sickDays = Math.floor(sickHours / 8);
+    let travelDays = Math.floor(travelHours / 8);
+    let timeAWDDays = Math.floor(timeAWD / 8);
     let LWOPDays = 0;
 
     //Calculate end dates for each leave type
     let startDate = new Date(dateStartString);
     let endDate = new Date(dateEndString);
-
-    console.log('Original Start Date: ' + startDate.toUTCString());
-    console.log('Original End Date: ' + endDate.toUTCString());
 
     //let timeOffset = startDate.getTimezoneOffset();
     //startDate.setMinutes(timeOffset);
@@ -54,15 +55,6 @@ async function modifyPdf() {
     let curChoice = firstChoice;
     let debugCount = 0;
 
-    console.log('Start Choice, and start/current/end dates, unmodified');
-    console.log(curChoice);
-    console.log(startDate.toUTCString());
-    console.log(startDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-    console.log(curDate.toUTCString());
-    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-    console.log(endDate.toUTCString());
-    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-
     //Declare date strings
     let startDateShoreString = '';
     let endDateShoreString = '';
@@ -72,28 +64,30 @@ async function modifyPdf() {
     let endDateCompString = '';
     let startDateSickString = '';
     let endDateSickString = '';
+    let startDateTravelString = '';
+    let endDateTravelString = '';
+    let startDateAWDString = '';
+    let endDateAWDString = '';
     let startDateLWOPString = '';
     let endDateLWOPString = '';
 
     while (Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) <= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
-        console.log('Loop: ' + debugCount.toString());
-        console.log('curChoice: ' + curChoice);
-        console.log('Current Date: ' + curDate.toUTCString() + ' | ' + Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) + ' ms');
-        console.log('End Date: ' + endDate.toUTCString() + ' | ' + Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate()) + ' ms');
         SSH = 0;
         zeroCheck = 0;
 
         // Assign new choice start date
         if (curChoice == 'Shore' && count == 0) {
             startDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
-            console.log('curDate: ' + curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-            console.log('shoreStartDate: ' + startDateShoreString);
         } else if (curChoice == 'Annual' && count == 0) {
             startDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         } else if (curChoice == 'Compensatory' && count == 0) {
             startDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         } else if (curChoice == 'Sick' && count == 0) {
             startDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+        } else if (curChoice == 'Travel Comp' && count == 0) {
+            startDateTravelString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+        } else if (curChoice == 'Time Off AWD' && count == 0) {
+            startDateAWDString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         } else if (curChoice == 'LWOP' && count == 0) {
             startDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
         }
@@ -168,16 +162,11 @@ async function modifyPdf() {
         }
         // Increase day count if day is not holiday or weekend
 
-        console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-        console.log(SSH.toString());
-        console.log(count.toString());
-
         if (SSH == 0) count++;
 
         // Check if count exceeds leave available for current choice, move to next choice
         while (zeroCheck == 0) {
             if (curChoice == 'Shore' && count == shoreDays) {
-                console.log('Shore end if check entered');
                 endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Shore') {
@@ -187,10 +176,13 @@ async function modifyPdf() {
                 } else if (thirdChoice == 'Shore') {
                     curChoice = fourthChoice;
                 } else if (fourthChoice == 'Shore') {
+                    curChoice = fifthChoice;
+                } else if (fifthChoice == 'Shore') {
+                    curChoice = sixthChoice
+                } else if (sixthChoice == 'Shore') {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Annual' && count == annualDays) {
-                console.log('Annual end if check entered');
                 endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Annual') {
@@ -200,6 +192,10 @@ async function modifyPdf() {
                 } else if (thirdChoice == 'Annual') {
                     curChoice = fourthChoice;
                 } else if (fourthChoice == 'Annual') {
+                    curChoice = fifthChoice;
+                } else if (fifthChoice == 'Annual') {
+                    curChoice = sixthChoice;
+                } else if (sixthChoice == 'Annual') {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Compensatory' && count == compDays) {
@@ -212,6 +208,10 @@ async function modifyPdf() {
                 } else if (thirdChoice == 'Compensatory') {
                     curChoice = fourthChoice;
                 } else if (fourthChoice == 'Compensatory') {
+                    curChoice = fifthChoice;
+                } else if (fifthChoice == 'Compensatory') {
+                    curChoice = sixthChoice;
+                } else if (sixthChoice == 'Compensatory') {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Sick' && count == sickDays) {
@@ -224,9 +224,47 @@ async function modifyPdf() {
                 } else if (thirdChoice == 'Sick') {
                     curChoice = fourthChoice;
                 } else if (fourthChoice == 'Sick') {
+                    curChoice = fifthChoice;
+                } else if (fifthChoice == 'Sick') {
+                    curChoice = sixthChoice
+                } else if (sixthChoice == 'Sick') {
                     curChoice = 'LWOP';
                 }
-            } else {
+            } else if (curChoice == 'Travel Comp' && count == travelDays) {
+                    endDateTravelString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+                    count = 0;
+                    if (firstChoice == 'Travel Comp') {
+                        curChoice = secondChoice;
+                    } else if (secondChoice == 'Travel Comp') {
+                        curChoice = thirdChoice;
+                    } else if (thirdChoice == 'Travel Comp') {
+                        curChoice = fourthChoice;
+                    } else if (fourthChoice == 'Travel Comp') {
+                        curChoice = fifthChoice;
+                    } else if (fifthChoice == 'Travel Comp') {
+                        curChoice = sixthChoice;
+                    } else if (sixthChoice == 'Travel Comp') {
+                        curChoice = 'LWOP';
+                    }
+            } else if (curChoice == 'Time Off AWD' && count == timeAWDDays) {
+                endDateAWDString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+                count = 0;
+                if (firstChoice == 'Time Off AWD') {
+                    curChoice = secondChoice;
+                } else if (secondChoice == 'Time Off AWD') {
+                    curChoice = thirdChoice;
+                } else if (thirdChoice == 'Time Off AWD') {
+                    curChoice = fourthChoice;
+                } else if (fourthChoice == 'Time Off AWD') {
+                    curChoice = fifthChoice;
+                } else if (fifthChoice == 'Time Off AWD') {
+                    curChoice = sixthChoice;
+                } else if (sixthChoice == 'Time Off AWD') {
+                    curChoice = 'LWOP';
+                }
+            }
+            else {
+                // curChoice = 'LWOP';
                 zeroCheck = 1;
             }
         }
@@ -247,11 +285,16 @@ async function modifyPdf() {
             endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
             sickDays = count;
         }
+        if (curChoice == 'Travel Comp' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
+            endDateTravelString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+            sickDays = count;
+        }
+        if (curChoice == 'Time Off AWD' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
+            endDateAWDString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
+            sickDays = count;
+        }
         if (curChoice == 'LWOP' && Date.UTC(curDate.getUTCFullYear(), curDate.getUTCMonth(), curDate.getUTCDate()) >= Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate())) {
             endDateLWOPString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
-            console.log('LWOP End');
-            console.log(curDate.toUTCString());
-            console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
             LWOPDays = count;
         }
 
@@ -259,22 +302,8 @@ async function modifyPdf() {
         debugCount++;
     }
 
-    console.log(debugCount.toString());
-    console.log('Shore Start:' + startDateShoreString);
-    console.log('Shore End:' + endDateShoreString);
-    console.log('Annual Start:' + startDateAnnualString);
-    console.log('Annual End:' + endDateAnnualString);
-    console.log('Comp Start:' + startDateCompString);
-    console.log('Comp End:' + endDateCompString);
-    console.log('LWOP Start:' + startDateLWOPString);
-    console.log('LWOP End:' + endDateLWOPString);
-
     let curDatems = curDate.getMilliseconds();
     let endDatems = endDate.getMilliseconds();
-    console.log(curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-    console.log(endDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"}));
-
-    
 
     // Fetch an existing PDF document
     const url = 'opm71_fillable.pdf';
@@ -329,6 +358,7 @@ async function modifyPdf() {
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[0]').setText(lastName + ', ' + firstName + ', ' + middleName);
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[1]').setText(employeeID);
     form.getTextField('form1[0].#subform[0].Table1[0].Row4[0].TextField[0]').setText('Military Sealift Command');
+    
 
     // Fill leave date fields
     if (startDateShoreString != '') {
@@ -364,6 +394,12 @@ async function modifyPdf() {
         form.getTextField('form1[0].#subform[0].Table3[1].Row6[0].DateTimeField16[0]').setText('5:00:00 PM');
         form.getTextField('form1[0].#subform[0].Table4[0].Row5[0].TextField[0]').setText(sickHours.toString());
     }
+    if (startDateTravelString != '') {
+        fullRemarks = travelHours + " hours Travel Comp for " + startDateTravelString + " - " + endDateTravelString + "; " + fullRemarks;
+    }
+    if (startDateAWDString != '') {
+        fullRemarks = timeAWD + " hours Time Off AWD for " + startDateAWDString + " - " + endDateAWDString + "; " + fullRemarks;
+    }
     if (startDateLWOPString != '') {
         form.getCheckBox('form1[0].#subform[0].CheckBox4[2]').check();
         form.getTextField('form1[0].#subform[0].Table7[0].Row3[0].DateTimeField23[0]').setText(startDateLWOPString);
@@ -388,8 +424,6 @@ async function modifyPdf() {
     form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(fullRemarks);
 
 	//Draw logo on page
-    console.log('Width: ' + firstPage.getWidth())
-    console.log('Height: ' + firstPage.getHeight())
 	firstPage.drawImage(pngLogo, {
     	x: 5, // firstPage.getWidth() / 2 - pngLogoDims.width / 2,
         y: 5, // firstPage.getHeight() - pngLogoDims.height - 10,
