@@ -302,44 +302,44 @@
         <p>
           <span class="circle" style="background-color: #007BFF;"></span>
           <label for="Annual Hours">Annual:</label>
-          <input type="number" id="Annual Hours" name="Annual Hours" is0=false onchange="handleLeaveChange('Annual Hours')">
+          <input type="number" id="Annual Hours" name="Annual Hours" value=0 onchange="handleLeaveChange('Annual Hours')">
           Hrs
         </p>
         <p>
           <span class="circle" style="background-color: #FF3131;"></span>
           <label for="Sick Hours">Sick:</label>
-          <input type="number" id="Sick Hours" name="Sick Hours" onchange="handleLeaveChange('Sick Hours')">
+          <input type="number" id="Sick Hours" name="Sick Hours" value=0 onchange="handleLeaveChange('Sick Hours')">
           Hrs
         </p>
         <p>
           <span class="circle" style="background-color: #FFDE59;"></span>
           <label for="Comp Hours">Compensatory:</label>
-          <input type="number" id="Comp Hours" name="Comp Hours" onchange="handleLeaveChange('Comp Hours')">
+          <input type="number" id="Comp Hours" name="Comp Hours" value=0 onchange="handleLeaveChange('Comp Hours')">
           Hrs
         </p>
         <p>
           <span class="circle" style="background-color: #8C52FF;"></span>
           <label for="Travel Comp Hours">Travel Comp:</label>
-          <input type="number" id="Travel Comp Hours" name="Travel Comp Hours" onchange="handleLeaveChange('Travel Comp Hours')">
+          <input type="number" id="Travel Comp Hours" name="Travel Comp Hours" value=0 onchange="handleLeaveChange('Travel Comp Hours')">
           Hrs
         </p>
         <p>
           <span class="circle" style="background-color: #00BF63;"></span>
           <label for="Time Off AWD Hours">Time Off AWD:</label>
-          <input type="number" id="Time Off AWD Hours" name="Time Off AWD Hours" onchange="handleLeaveChange('Time Off AWD Hours')">
+          <input type="number" id="Time Off AWD Hours" name="Time Off AWD Hours" value=0 onchange="handleLeaveChange('Time Off AWD Hours')">
           Hrs
         </p>
         <p>
           <span class="circle" style="background-color: #FF66C4;"></span>
           <label for="Shore Days">Shore:</label>
-          <input type="number" id="Shore Days" name="Shore Days" onchange="handleLeaveChange('Shore Days')">
+          <input type="number" id="Shore Days" name="Shore Days" value=0 onchange="handleLeaveChange('Shore Days')">
           Days
         </p>
       </div>
       <div class="column">
         <p>
           <label for="Leave First">First Priority:</label>
-          <select name="Leave First" id="Leave First">
+          <select name="Leave First" id="Leave First" disabled>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
             <option value="Compensatory">Compensatory</option>
@@ -350,9 +350,9 @@
         </p>
         <p>
           <label for="Leave Second">Second Priority:</label>
-          <select name="Leave Second" id="Leave Second">
-            <option value="Annual">Annual</option>
+          <select name="Leave Second" id="Leave Second" disabled>
             <option value="Sick">Sick</option>
+            <option value="Annual">Annual</option>
             <option value="Compensatory">Compensatory</option>
             <option value="Travel Comp">Travel Comp</option>
             <option value="Time Off AWD">Time Off AWD</option>
@@ -361,10 +361,10 @@
         </p>
         <p>
           <label for="Leave Third">Third Priority:</label>
-          <select name="Leave Third" id="Leave Third">
+          <select name="Leave Third" id="Leave Third" disabled>
+            <option value="Compensatory">Compensatory</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
-            <option value="Compensatory">Compensatory</option>
             <option value="Travel Comp">Travel Comp</option>
             <option value="Time Off AWD">Time Off AWD</option>
             <option value="Shore">Shore</option>
@@ -372,35 +372,35 @@
         </p>
         <p>
           <label for="Leave Fourth">Fourth Priority:</label>
-          <select name="Leave Fourth" id="Leave Fourth">
+          <select name="Leave Fourth" id="Leave Fourth" disabled>
+            <option value="Travel Comp">Travel Comp</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
             <option value="Compensatory">Compensatory</option>
-            <option value="Travel Comp">Travel Comp</option>
             <option value="Time Off AWD">Time Off AWD</option>
             <option value="Shore">Shore</option>
           </select>
         </p>
         <p>
           <label for="Leave Fifth">Fifth Priority:</label>
-          <select name="Leave Fifth" id="Leave Fifth">
+          <select name="Leave Fifth" id="Leave Fifth" disabled>
+            <option value="Time Off AWD">Time Off AWD</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
             <option value="Compensatory">Compensatory</option>
             <option value="Travel Comp">Travel Comp</option>
-            <option value="Time Off AWD">Time Off AWD</option>
             <option value="Shore">Shore</option>
           </select>
         </p>
         <p>
           <label for="Leave Sixth">Sixth Priority:</label>
-          <select name="Leave Sixth" id="Leave Sixth">
+          <select name="Leave Sixth" id="Leave Sixth" disabled>
+            <option value="Shore">Shore</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
             <option value="Compensatory">Compensatory</option>
             <option value="Travel Comp">Travel Comp</option>
             <option value="Time Off AWD">Time Off AWD</option>
-            <option value="Shore">Shore</option>
           </select>
         </p>
       </div>
@@ -449,43 +449,30 @@
     }
 
     var is0 = {
-      "Annual Hours": false,
-      "Sick Hours": false,
-      "Comp Hours": false,
-      "Travel Comp Hours": false,
-      "Time Off AWD Hours": false,
-      "Shore Days": false
+      "Annual Hours": true,
+      "Sick Hours": true,
+      "Comp Hours": true,
+      "Travel Comp Hours": true,
+      "Time Off AWD Hours": true,
+      "Shore Days": true
     }
 
     function handleLeaveChange(leaveId) {
       leave = document.getElementById(leaveId).value;
 
-      if(document.getElementById("Duty Status").value === "FFD" && leaveId === "Sick Hours" && leave > 24) {
-        console.log("test")
-        alert("You cannot use more than 24 hours of sick leave in a pay period while in a Fit For Duty status.");
-        document.getElementById("Sick Hours").value = 24;
-        return;
-      }
-
       if (leave == 0 && !is0[leaveId]) {
         if (!document.getElementById("Leave Sixth").disabled) {
           document.getElementById("Leave Sixth").disabled = true;
-          document.getElementById("Leave Sixth").value = null;
         } else if (!document.getElementById("Leave Fifth").disabled) {
           document.getElementById("Leave Fifth").disabled = true;
-          document.getElementById("Leave Fifth").value = null;
         } else if (!document.getElementById("Leave Fourth").disabled) {
           document.getElementById("Leave Fourth").disabled = true;
-          document.getElementById("Leave Fourth").value = null;
         } else if (!document.getElementById("Leave Third").disabled) {
           document.getElementById("Leave Third").disabled = true;
-          document.getElementById("Leave Third").value = null;
         } else if (!document.getElementById("Leave Second").disabled) {
           document.getElementById("Leave Second").disabled = true;
-          document.getElementById("Leave Second").value = null;
         } else {
           document.getElementById("Leave First").disabled = true;
-          document.getElementById("Leave First").value = null;
         }
 
         is0[leaveId] = true;
@@ -507,6 +494,13 @@
 
           is0[leaveId] = false;
         }
+      }
+
+      if(document.getElementById("Duty Status").value === "FFD" && leaveId === "Sick Hours" && leave > 24) {
+        console.log("test")
+        alert("You cannot use more than 24 hours of sick leave in a pay period while in a Fit For Duty status.");
+        document.getElementById("Sick Hours").value = 24;
+        return;
       }
     }
 

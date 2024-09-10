@@ -27,7 +27,7 @@ async function modifyPdf() {
     let remarks = document.getElementById('Remarks').value;
 
     // Combine the remarks content
-    let fullRemarks = `Please contact me at ${phoneNumber} / ${email}; ${remarks}`;
+    let fullRemarks = `Contact: ${phoneNumber} / ${email}; ${remarks}`;
     
     //Declare leave days variables
     let annualDays = Math.floor(annualHours / 8);
@@ -166,7 +166,7 @@ async function modifyPdf() {
 
         // Check if count exceeds leave available for current choice, move to next choice
         while (zeroCheck == 0) {
-            if (curChoice == 'Shore' && count == shoreDays) {
+            if (curChoice == 'Shore' && count == shoreDays || curChoice == 'Shore' && shoreDays == 0) {
                 endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Shore') {
@@ -182,7 +182,8 @@ async function modifyPdf() {
                 } else if (sixthChoice == 'Shore') {
                     curChoice = 'LWOP';
                 }
-            } else if (curChoice == 'Annual' && count == annualDays) {
+            } else if (curChoice == 'Annual' && count == annualDays || curChoice == 'Annual' && annualDays == 0) {
+                console.log("annual")
                 endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Annual') {
@@ -198,7 +199,7 @@ async function modifyPdf() {
                 } else if (sixthChoice == 'Annual') {
                     curChoice = 'LWOP';
                 }
-            } else if (curChoice == 'Compensatory' && count == compDays) {
+            } else if (curChoice == 'Compensatory' && count == compDays || curChoice == 'Compensatory' && compDays == 0) {
                 endDateCompString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Compensatory') {
@@ -214,7 +215,7 @@ async function modifyPdf() {
                 } else if (sixthChoice == 'Compensatory') {
                     curChoice = 'LWOP';
                 }
-            } else if (curChoice == 'Sick' && count == sickDays) {
+            } else if (curChoice == 'Sick' && count == sickDays || curChoice == 'Sick' && sickDays == 0) {
                 endDateSickString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Sick') {
@@ -230,7 +231,7 @@ async function modifyPdf() {
                 } else if (sixthChoice == 'Sick') {
                     curChoice = 'LWOP';
                 }
-            } else if (curChoice == 'Travel Comp' && count == travelDays) {
+            } else if (curChoice == 'Travel Comp' && count == travelDays || curChoice == 'Travel Comp' && travelDays == 0) {
                     endDateTravelString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                     count = 0;
                     if (firstChoice == 'Travel Comp') {
@@ -246,7 +247,7 @@ async function modifyPdf() {
                     } else if (sixthChoice == 'Travel Comp') {
                         curChoice = 'LWOP';
                     }
-            } else if (curChoice == 'Time Off AWD' && count == timeAWDDays) {
+            } else if (curChoice == 'Time Off AWD' && count == timeAWDDays || curChoice == 'Time Off AWD' && timeAWDDays == 0) {
                 endDateAWDString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Time Off AWD') {
@@ -369,6 +370,7 @@ async function modifyPdf() {
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].DateTimeField31[0]').setText('5:00:00 PM');
         form.getTextField('form1[0].#subform[0].Table7[0].Row2[0].TextField[0]').setText(shoreDays.toString());
         form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(shoreDays + ' days to be billed as shore leave days.');
+        fullRemarks = shoreDays + " Shore Days for " + startDateShoreString + " - " + endDateShoreString + "; " + fullRemarks;
     }
     if (startDateAnnualString != '') {
         form.getCheckBox('form1[0].#subform[0].CheckBox1[0]').check();
