@@ -26,6 +26,11 @@ async function modifyPdf() {
     let email = document.getElementById('Email').value;
     let remarks = document.getElementById('Remarks').value;
 
+    if(dateStartString == '' || dateEndString == '') {
+        alert('Please enter a valid date range.');
+        return;
+    }
+
     // Combine the remarks content
     let fullRemarks = `Contact: ${phoneNumber} / ${email}; ${remarks}`;
     
@@ -165,7 +170,30 @@ async function modifyPdf() {
         if (SSH == 0) count++;
 
         // Check if count exceeds leave available for current choice, move to next choice
+        console.log(firstChoice, secondChoice, thirdChoice, fourthChoice, fifthChoice, sixthChoice);
         while (zeroCheck == 0) {
+            if(curChoice == 'Chose Leave Type') {
+                count = 0;
+                if(firstChoice == 'Chose Leave Type' && secondChoice != 'Chose Leave Type') {
+                    firstChoice = ''
+                    curChoice = secondChoice;
+                } else if(secondChoice == 'Chose Leave Type' && thirdChoice != 'Chose Leave Type') {
+                    secondChoice = ''
+                    curChoice = thirdChoice;
+                } else if(thirdChoice == 'Chose Leave Type' && fourthChoice != 'Chose Leave Type') {
+                    thirdChoice = ''
+                    curChoice = fourthChoice;
+                } else if(fourthChoice == 'Chose Leave Type' && fifthChoice != 'Chose Leave Type') {
+                    fourthChoice = ''
+                    curChoice = fifthChoice;
+                } else if(fifthChoice == 'Chose Leave Type' && sixthChoice != 'Chose Leave Type') {
+                    fifthChoice = ''
+                    curChoice = sixthChoice;
+                } else if(sixthChoice == 'Chose Leave Type') {
+                    sixthChoice = ''
+                    curChoice = 'LWOP';
+                }
+            }
             if (curChoice == 'Shore' && count == shoreDays || curChoice == 'Shore' && shoreDays == 0) {
                 endDateShoreString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
@@ -307,11 +335,11 @@ async function modifyPdf() {
     let endDatems = endDate.getMilliseconds();
 
     // Fetch an existing PDF document
-    const url = 'opm71_fillable.pdf';
+    const url = '"https://cdn.shopify.com/s/files/1/0875/2126/3925/files/opm71_fillable.pdf';
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
     
     // Fetch logo image
-	const pngLogoUrl = 'Images/Artboard 2.png';
+	const pngLogoUrl = 'https://cdn.shopify.com/s/files/1/0875/2126/3925/files/Artboard_2.png?v=1713049251';
     const pngLogoBytes = await fetch(pngLogoUrl).then((res) => res.arrayBuffer());
 
     // Load a PDFDocument from the existing PDF bytes

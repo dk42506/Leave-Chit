@@ -340,6 +340,7 @@
         <p>
           <label for="Leave First">First Priority:</label>
           <select name="Leave First" id="Leave First" disabled>
+            <option value="Chose Leave Type">Chose Leave Type</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
             <option value="Compensatory">Compensatory</option>
@@ -351,6 +352,7 @@
         <p>
           <label for="Leave Second">Second Priority:</label>
           <select name="Leave Second" id="Leave Second" disabled>
+            <option value="Chose Leave Type">Chose Leave Type</option>
             <option value="Sick">Sick</option>
             <option value="Annual">Annual</option>
             <option value="Compensatory">Compensatory</option>
@@ -362,6 +364,7 @@
         <p>
           <label for="Leave Third">Third Priority:</label>
           <select name="Leave Third" id="Leave Third" disabled>
+            <option value="Chose Leave Type">Chose Leave Type</option>
             <option value="Compensatory">Compensatory</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
@@ -373,6 +376,7 @@
         <p>
           <label for="Leave Fourth">Fourth Priority:</label>
           <select name="Leave Fourth" id="Leave Fourth" disabled>
+            <option value="Chose Leave Type">Chose Leave Type</option>
             <option value="Travel Comp">Travel Comp</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
@@ -384,6 +388,7 @@
         <p>
           <label for="Leave Fifth">Fifth Priority:</label>
           <select name="Leave Fifth" id="Leave Fifth" disabled>
+            <option value="Chose Leave Type">Chose Leave Type</option>
             <option value="Time Off AWD">Time Off AWD</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
@@ -395,6 +400,7 @@
         <p>
           <label for="Leave Sixth">Sixth Priority:</label>
           <select name="Leave Sixth" id="Leave Sixth" disabled>
+            <option value="Chose Leave Type">Chose Leave Type</option>
             <option value="Shore">Shore</option>
             <option value="Annual">Annual</option>
             <option value="Sick">Sick</option>
@@ -463,16 +469,22 @@
       if (leave == 0 && !is0[leaveId]) {
         if (!document.getElementById("Leave Sixth").disabled) {
           document.getElementById("Leave Sixth").disabled = true;
+          document.getElementById("Leave Sixth").value = "Chose Leave Type";
         } else if (!document.getElementById("Leave Fifth").disabled) {
           document.getElementById("Leave Fifth").disabled = true;
+          document.getElementById("Leave Fifth").value = "Chose Leave Type";
         } else if (!document.getElementById("Leave Fourth").disabled) {
           document.getElementById("Leave Fourth").disabled = true;
+          document.getElementById("Leave Fourth").value = "Chose Leave Type";
         } else if (!document.getElementById("Leave Third").disabled) {
           document.getElementById("Leave Third").disabled = true;
+          document.getElementById("Leave Third").value = "Chose Leave Type";
         } else if (!document.getElementById("Leave Second").disabled) {
           document.getElementById("Leave Second").disabled = true;
+          document.getElementById("Leave Second").value = "Chose Leave Type";
         } else {
           document.getElementById("Leave First").disabled = true;
+          document.getElementById("Leave First").value = "Chose Leave Type";
         }
 
         is0[leaveId] = true;
