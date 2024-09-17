@@ -170,7 +170,6 @@ async function modifyPdf() {
         if (SSH == 0) count++;
 
         // Check if count exceeds leave available for current choice, move to next choice
-        console.log(firstChoice, secondChoice, thirdChoice, fourthChoice, fifthChoice, sixthChoice);
         while (zeroCheck == 0) {
             if(curChoice == 'Chose Leave Type') {
                 count = 0;
@@ -211,7 +210,6 @@ async function modifyPdf() {
                     curChoice = 'LWOP';
                 }
             } else if (curChoice == 'Annual' && count == annualDays || curChoice == 'Annual' && annualDays == 0) {
-                console.log("annual")
                 endDateAnnualString = curDate.toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric", timeZone:"UTC"});
                 count = 0;
                 if (firstChoice == 'Annual') {
@@ -335,7 +333,7 @@ async function modifyPdf() {
     let endDatems = endDate.getMilliseconds();
 
     // Fetch an existing PDF document
-    const url = '"https://cdn.shopify.com/s/files/1/0875/2126/3925/files/opm71_fillable.pdf';
+    const url = 'https://cdn.shopify.com/s/files/1/0875/2126/3925/files/opm71_fillable.pdf';
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
     
     // Fetch logo image
@@ -356,7 +354,7 @@ async function modifyPdf() {
 
     // Get PDFDocument Form Fields
     const form = pdfDoc.getForm();
-    // const fields = form.getFields();
+    const fields = form.getFields();
     // fields.forEach(field => {
     //    const type = field.constructor.name;
     //    const name = field.getName();
@@ -387,6 +385,7 @@ async function modifyPdf() {
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[0]').setText(lastName + ', ' + firstName + ', ' + middleName);
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[1]').setText(employeeID);
     form.getTextField('form1[0].#subform[0].Table1[0].Row4[0].TextField[0]').setText('Military Sealift Command');
+    form.getTextField('form1[0].#subform[0].Table8[0].Row5[0].DateTimeField25[0]').setText(curDate.toDateString());
     
 
     // Fill leave date fields
@@ -450,6 +449,8 @@ async function modifyPdf() {
         }
     }
 
+    
+    console.log(curDate.toDateString())
     // Set the remarks in the PDF
     form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(fullRemarks);
 
