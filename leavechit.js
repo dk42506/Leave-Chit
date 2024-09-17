@@ -329,9 +329,6 @@ async function modifyPdf() {
         debugCount++;
     }
 
-    let curDatems = curDate.getMilliseconds();
-    let endDatems = endDate.getMilliseconds();
-
     // Fetch an existing PDF document
     const url = 'https://cdn.shopify.com/s/files/1/0875/2126/3925/files/opm71_fillable.pdf';
   	const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer());
@@ -381,11 +378,13 @@ async function modifyPdf() {
     compHours = compDays * 8;
     let LWOPHours = LWOPDays * 8;
 
+    const today = new Date();
+
     // Fill PDF Text Fields
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[0]').setText(lastName + ', ' + firstName + ', ' + middleName);
     form.getTextField('form1[0].#subform[0].Table1[0].Row2[0].TextField[1]').setText(employeeID);
     form.getTextField('form1[0].#subform[0].Table1[0].Row4[0].TextField[0]').setText('Military Sealift Command');
-    form.getTextField('form1[0].#subform[0].Table8[0].Row5[0].DateTimeField25[0]').setText(curDate.toDateString());
+    form.getTextField('form1[0].#subform[0].Table8[0].Row5[0].DateTimeField25[0]').setText(today.toDateString());
     
 
     // Fill leave date fields
@@ -449,8 +448,6 @@ async function modifyPdf() {
         }
     }
 
-    
-    console.log(curDate.toDateString())
     // Set the remarks in the PDF
     form.getTextField('form1[0].#subform[0].Table8[0].Row2[0].TextField[0]').setText(fullRemarks);
 
